@@ -8,7 +8,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
+
+import Proyecto.DAO_Cliente;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -17,6 +21,8 @@ import javax.swing.JDialog;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GUI_AltaCliente extends javax.swing.JFrame{
 
@@ -173,9 +179,63 @@ public class GUI_AltaCliente extends javax.swing.JFrame{
 	}
 	
 	public void aceptar() {
-		//AÑADIR A LA BASE DE DATOS Y CUANDO SE GUARDE CORRECTAMENTE, JOPTIONPANE NOTIFICANDO
-		this.setVisible(false);
-		this.dispose();
-		menu.setVisible(true);
+		try {
+			
+		if((text_DNI.getText().equals(""))||(text_Nombre.getText().equals(""))||(text_Apellidos.getText().equals(""))||(text_Telefono.getText().equals(""))||(text_Domicilio.getText().equals(""))) {
+			JOptionPane.showInternalMessageDialog(null, "Te faltan campos por rellenar");
+		}else
+		if (text_Correo.getText().equals("")){
+			Object[]datos = new Object[5];
+			datos[0] = text_DNI.getText();
+			datos[1] = text_Nombre.getText();
+			datos[2] = text_Apellidos.getText();
+			datos[3] = Integer.parseInt(text_Telefono.getText());
+			datos[4] = text_Domicilio.getText();
+			int num = Integer.parseInt(text_Telefono.getText());
+			int cantidad = 0;
+			while(num!=0) {
+				num = num/10;
+				cantidad++;
+			}
+			if(cantidad<9) {
+				JOptionPane.showInternalMessageDialog(null, "Número de teléfono mal escrito");
+			}else {
+				DAO_Cliente clienteDao = new DAO_Cliente();
+			clienteDao.agregarDatos(datos);
+			this.setVisible(false);
+			this.dispose();
+			menu.setVisible(true);
+			}
+			
+		}else {
+			Object[]datos = new Object[6];
+			datos[0] = text_DNI.getText();
+			datos[1] = text_Nombre.getText();
+			datos[2] = text_Apellidos.getText();
+			datos[3] = text_Telefono.getText();
+			datos[4] = text_Domicilio.getText();
+			datos[5] = text_Correo.getText();
+			int verificacion = text_Correo.getText().indexOf("@");
+			int num = Integer.parseInt(text_Telefono.getText());
+			int cantidad = 0;
+			while(num!=0) {
+				num = num/10;
+				cantidad++;
+			}
+			if(verificacion==-1) {
+				JOptionPane.showInternalMessageDialog(null, "Correo electrónico mal escrito");
+			}else if(cantidad<9){
+				JOptionPane.showInternalMessageDialog(null, "Número de teléfono mal escrito");
+			}else {
+				DAO_Cliente clienteDao = new DAO_Cliente();
+				clienteDao.agregarDatos(datos);
+				this.setVisible(false);
+				this.dispose();
+				menu.setVisible(true);
+			}
+		}
+		}catch(NumberFormatException nfe) {
+			JOptionPane.showInternalMessageDialog(null, "Número de teléfono mal escrito");
+		}
 	}
 }

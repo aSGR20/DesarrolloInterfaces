@@ -13,18 +13,24 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JTextField;
+
+import Ventas.GUI_PropuestaVehiculo1;
+import Ventas.GUI_Ventas;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GUI_Login extends javax.swing.JFrame{
 
 	private JFrame frame;
-	private JTextField textField;
-	private JPasswordField passwordField;
+	private JTextField text_User;
+	private JPasswordField text_Passwd;
 
 	/**
 	 * Launch the application.
@@ -75,13 +81,18 @@ public class GUI_Login extends javax.swing.JFrame{
 		lblNewLabel_1.setBounds(73, 130, 85, 14);
 		panel.add(lblNewLabel_1);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		textField.setBounds(164, 93, 148, 20);
-		panel.add(textField);
-		textField.setColumns(10);
+		text_User = new JTextField();
+		text_User.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		text_User.setBounds(164, 93, 148, 20);
+		panel.add(text_User);
+		text_User.setColumns(10);
 		
 		JButton btnLogin = new JButton("Login");
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				loggear();
+			}
+		});
 		btnLogin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -92,10 +103,10 @@ public class GUI_Login extends javax.swing.JFrame{
 		btnLogin.setBounds(164, 179, 89, 23);
 		panel.add(btnLogin);
 		
-		passwordField = new JPasswordField();
-		passwordField.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		passwordField.setBounds(164, 129, 148, 20);
-		panel.add(passwordField);
+		text_Passwd = new JPasswordField();
+		text_Passwd.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		text_Passwd.setBounds(164, 129, 148, 20);
+		panel.add(text_Passwd);
 		
 		JLabel lblNewLabel_2 = new JLabel("New label");
 		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\sebas\\eclipse-workspace\\DesarrolloInterfaces\\src\\images\\myLogo_Login.png"));
@@ -107,6 +118,19 @@ public class GUI_Login extends javax.swing.JFrame{
 			myLogo = ImageIO.read(new File(".\\src\\images\\myLogo.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public void loggear() {
+		String username;
+		char[] password;
+		username = text_User.getText();
+		password = text_Passwd.getPassword();
+		UsuarioLogin usuario = new UsuarioLogin(username, password);
+		boolean usuarioDao = new DAO_Usuario() != null;
+		if(usuarioDao) {
+			GUI_Ventas proponer = new GUI_Ventas(this);
+			this.setVisible(false);
 		}
 	}
 }

@@ -8,6 +8,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
+
+import Proyecto.GUI_Login;
+
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Font;
@@ -27,7 +30,7 @@ public class GUI_Ventas extends javax.swing.JFrame{
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -38,12 +41,12 @@ public class GUI_Ventas extends javax.swing.JFrame{
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the application.
 	 */
-	public GUI_Ventas() {
+	public GUI_Ventas(GUI_Login login) {
 		initialize();
 		setLocationRelativeTo(null);
 		setVisible(true);
@@ -102,7 +105,7 @@ public class GUI_Ventas extends javax.swing.JFrame{
 		btnAltaCliente.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				abrirAlta();
+				altaClientes();
 			}
 		});
 		btnAltaCliente.setBounds(40, 135, 89, 23);
@@ -115,17 +118,17 @@ public class GUI_Ventas extends javax.swing.JFrame{
 				verVehiculos();
 			}
 		});
-		btnVerVehiculo.setBounds(328, 254, 89, 23);
+		btnVerVehiculo.setBounds(328, 217, 89, 23);
 		panel_1.add(btnVerVehiculo);
 		
 		JLabel lbl_VerVehiculos = new JLabel("Ver TODOS los VEH\u00CDCULOS");
 		lbl_VerVehiculos.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 12));
-		lbl_VerVehiculos.setBounds(292, 229, 160, 14);
+		lbl_VerVehiculos.setBounds(292, 192, 160, 14);
 		panel_1.add(lbl_VerVehiculos);
 		
 		JLabel lbl_VenderVehículo = new JLabel("VENDER alg\u00FAn VEH\u00CDCULO");
 		lbl_VenderVehículo.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 12));
-		lbl_VenderVehículo.setBounds(17, 229, 154, 14);
+		lbl_VenderVehículo.setBounds(10, 297, 154, 14);
 		panel_1.add(lbl_VenderVehículo);
 		
 		JButton btnVender = new JButton("Vender");
@@ -135,12 +138,12 @@ public class GUI_Ventas extends javax.swing.JFrame{
 				venderVehiculo();
 			}
 		});
-		btnVender.setBounds(40, 254, 89, 23);
+		btnVender.setBounds(40, 322, 89, 23);
 		panel_1.add(btnVender);
 		
 		JLabel lbl_ProponerVehiculo = new JLabel("PROPONER alg\u00FAn VEH\u00CDCULO");
 		lbl_ProponerVehiculo.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 12));
-		lbl_ProponerVehiculo.setBounds(10, 342, 169, 14);
+		lbl_ProponerVehiculo.setBounds(283, 297, 169, 14);
 		panel_1.add(lbl_ProponerVehiculo);
 		
 		JButton btnProponer = new JButton("Proponer");
@@ -150,17 +153,17 @@ public class GUI_Ventas extends javax.swing.JFrame{
 				proponerVehiculo();
 			}
 		});
-		btnProponer.setBounds(40, 367, 89, 23);
+		btnProponer.setBounds(328, 322, 89, 23);
 		panel_1.add(btnProponer);
 		
 		JLabel lbl_ComprobarPropuestas = new JLabel("COMPROBAR las PROPUESTAS");
 		lbl_ComprobarPropuestas.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 12));
-		lbl_ComprobarPropuestas.setBounds(279, 342, 187, 14);
+		lbl_ComprobarPropuestas.setBounds(141, 384, 187, 14);
 		panel_1.add(lbl_ComprobarPropuestas);
 		
 		JButton btnComprobar = new JButton("Comprobar");
 		btnComprobar.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		btnComprobar.setBounds(322, 367, 107, 23);
+		btnComprobar.setBounds(184, 409, 107, 23);
 		panel_1.add(btnComprobar);
 		
 		JLabel lbl_VerClientes = new JLabel("Ver TODOS los CLIENTES");
@@ -177,10 +180,30 @@ public class GUI_Ventas extends javax.swing.JFrame{
 		});
 		btnVerCliente.setBounds(328, 135, 89, 23);
 		panel_1.add(btnVerCliente);
+		
+		JLabel lbl_AltaVehiculo = new JLabel("REGISTRAR alg\u00FAn VEH\u00CDCULO");
+		lbl_AltaVehiculo.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 12));
+		lbl_AltaVehiculo.setBounds(10, 192, 181, 14);
+		panel_1.add(lbl_AltaVehiculo);
+		
+		JButton btnAltaCliente_1 = new JButton("Registrar");
+		btnAltaCliente_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				altaVehiculos();
+			}
+		});
+		btnAltaCliente_1.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		btnAltaCliente_1.setBounds(40, 217, 89, 23);
+		panel_1.add(btnAltaCliente_1);
 	}
 	
-	public void abrirAlta() {
+	public void altaClientes() {
 		GUI_AltaCliente alta = new GUI_AltaCliente(this);
+		this.setVisible(false);
+	}
+	
+	public void altaVehiculos() {
+		GUI_AltaVehiculo alta = new GUI_AltaVehiculo(this);
 		this.setVisible(false);
 	}
 	

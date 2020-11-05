@@ -21,17 +21,20 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import Proyecto.DAO_Cliente;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class GUI_VenderVehiculo2 extends javax.swing.JFrame{
 
+	private DefaultTableModel dm;
 	private GUI_Ventas menu;
 	private GUI_VenderVehiculo1 ventaNombre;
 	private JFrame frame;
 	private JTable table;
 	private JTextField text_DNI;
-	private JTextField text_Nombre;
 
 	/**
 	 * Create the application.
@@ -54,6 +57,7 @@ public class GUI_VenderVehiculo2 extends javax.swing.JFrame{
 		setBounds(100, 100, 667, 482);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
+		DAO_Cliente clienteDao = new DAO_Cliente();
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 139, 139));
@@ -93,18 +97,28 @@ public class GUI_VenderVehiculo2 extends javax.swing.JFrame{
 		btnVolver.setBounds(10, 381, 134, 46);
 		panel_1.add(btnVolver);
 		
-		table = new JTable();
+		dm = new DefaultTableModel();
+		table = new JTable(dm);
 		table.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		JScrollPane scrollPane= new  JScrollPane(table);
 		scrollPane.setLocation(10, 95);
 		scrollPane.setSize(456, 265);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"DNI", "Nombre", "Apellidos", "Telefono", "Domicilio"
-			}
-		));
+		String[]columns= {"DNI", "Nombre", "Apellidos", "Teléfono", "Domicilio"};
+		for(int i = 0; i < columns.length;i++) {
+			dm.addColumn(columns[i]);
+		}
+		Object[]data = new Object[6];
+		for(int i = 0; i < clienteDao.recibirDatos().size();i++) {
+			Object[]linea = clienteDao.recibirDatos().get(i).toString().split(";");
+			data[0] = linea[0];
+			data[1] = linea[1];
+			data[2] = linea[2];
+			data[3] = linea[3];
+			data[4] = linea[4];
+			data[5] = linea[5];
+			dm.addRow(data);
+		}
+		table.setModel(dm);
 		table.setBounds(20, 70, 446, 305);
 		panel_1.add(scrollPane);
 		
@@ -113,24 +127,30 @@ public class GUI_VenderVehiculo2 extends javax.swing.JFrame{
 		lbl_DNI.setBounds(8, 43, 24, 14);
 		panel_1.add(lbl_DNI);
 		
-		JLabel lbl_Nombre = new JLabel("Nombre");
-		lbl_Nombre.setFont(new Font("SansSerif", Font.BOLD, 14));
-		lbl_Nombre.setBounds(176, 43, 55, 14);
-		panel_1.add(lbl_Nombre);
-		
 		text_DNI = new JTextField();
 		text_DNI.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		text_DNI.setBounds(34, 40, 134, 20);
+		text_DNI.setBounds(42, 40, 155, 20);
 		panel_1.add(text_DNI);
 		text_DNI.setColumns(10);
 		
-		text_Nombre = new JTextField();
-		text_Nombre.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		text_Nombre.setColumns(10);
-		text_Nombre.setBounds(233, 40, 134, 20);
-		panel_1.add(text_Nombre);
-		
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String dni = text_DNI.getText();
+				clienteDao.buscarDNI(dni);
+				dm.setRowCount(0);
+				Object[]data = new Object[5];
+				for(int i = 0; i < clienteDao.buscarDNI(dni).size();i++) {
+					Object[]linea = clienteDao.buscarDNI(dni).get(i).toString().split(";");
+					data[0] = linea[0];
+					data[1] = linea[1];
+					data[2] = linea[2];
+					data[3] = linea[3];
+					data[4] = linea[4];
+					dm.addRow(data);
+				}
+			}
+		});
 		btnBuscar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -149,6 +169,28 @@ public class GUI_VenderVehiculo2 extends javax.swing.JFrame{
 		btnSiguiente.setFont(new Font("SansSerif", Font.BOLD, 12));
 		btnSiguiente.setBounds(332, 381, 134, 46);
 		panel_1.add(btnSiguiente);
+		
+		JButton btnResetear = new JButton("Resetear");
+		btnResetear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				text_DNI.setText("");
+				dm.setRowCount(0);
+				clienteDao.recibirDatos();
+				Object[]data = new Object[6];
+				for(int i = 0; i < clienteDao.recibirDatos().size();i++) {
+					Object[]linea = clienteDao.recibirDatos().get(i).toString().split(";");
+					data[0] = linea[0];
+					data[1] = linea[1];
+					data[2] = linea[2];
+					data[3] = linea[3];
+					data[4] = linea[4];
+					data[5] = linea[5];
+					dm.addRow(data);
+				}
+			}
+		});
+		btnResetear.setBounds(278, 39, 89, 23);
+		panel_1.add(btnResetear);
 	}
 
 	public void volver() {

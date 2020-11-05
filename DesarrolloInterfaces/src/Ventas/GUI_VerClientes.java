@@ -11,6 +11,7 @@ import java.awt.Color;
 import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -19,13 +20,21 @@ import javax.swing.JDialog;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import Proyecto.Cliente;
+import Proyecto.DAO_Cliente;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class GUI_VerClientes extends javax.swing.JFrame{
 
+	private String DNI;
+	private DefaultTableModel dm;
 	private GUI_Ventas menu;
 	private JFrame frame;
 	private JTable table;
@@ -54,6 +63,7 @@ public class GUI_VerClientes extends javax.swing.JFrame{
 		setBounds(100, 100, 667, 482);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
+		DAO_Cliente clienteDao = new DAO_Cliente();
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 139, 139));
@@ -93,25 +103,51 @@ public class GUI_VerClientes extends javax.swing.JFrame{
 		btnVolver.setBounds(10, 378, 134, 46);
 		panel_1.add(btnVolver);
 		
-		table = new JTable();
+		dm = new DefaultTableModel();
+		table = new JTable(dm);
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tableMouseClicked(e);
+			}
+		});
 		table.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		JScrollPane scrollPane= new  JScrollPane(table);
 		scrollPane.setLocation(10, 104);
 		scrollPane.setSize(456, 256);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Nombre", "Apellidos", "Telefono", "Domicilio"
-			}
-		));
+		String[]columns = {"DNI", "Nombre", "Apellidos", "Telefono", "Domicilio"};
+		for ( int i=0; i<columns.length;i++){
+            dm.addColumn(columns[i]);
+        }
+		Object[]data = new Object[5];
+		for (int i = 0; i < clienteDao.recibirDatos().size();i++) {
+			Object[] linea = clienteDao.recibirDatos().get(i).toString().split(";");
+			data[0] = linea[0];
+			data[1] = linea[1];
+			data[2] = linea[2];
+			data[3] = linea[3];
+			data[4] = linea[4];
+			dm.addRow(data);
+		}
+		table.setModel(dm);
+		
 		table.setBounds(20, 70, 446, 305);
 		panel_1.add(scrollPane);
 		
 		JButton btnModificar = new JButton("Modificar");
-		btnModificar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		btnModificar.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
 				modificar();
+				dm.setRowCount(0);
+				for (int i = 0; i < clienteDao.recibirDatos().size();i++) {
+					Object[] linea = clienteDao.recibirDatos().get(i).toString().split(";");
+					data[0] = linea[0];
+					data[1] = linea[1];
+					data[2] = linea[2];
+					data[3] = linea[3];
+					data[4] = linea[4];
+					dm.addRow(data);
+				}
 			}
 		});
 		btnModificar.setFont(new Font("SansSerif", Font.BOLD, 12));
@@ -170,6 +206,37 @@ public class GUI_VerClientes extends javax.swing.JFrame{
 	}
 	
 	public void modificar() {
-		//COGE EL APARTADO SELECCIONADO DE LA TABLA Y LO RELLENA EN LOS TEXTFIELDS, ACTUALIZAR EL APARTADO SELECCIONADO AL CAMPO
+		try {
+		Object[]datos = new Object[4];
+		datos[0] = textField.getText();
+		datos[1] = textField_1.getText();
+		datos[2] = Integer.parseInt(textField_2.getText());
+		datos[3] = textField_3.getText();
+		int num = Integer.parseInt(textField_2.getText());
+		int cantidad = 0;
+		while(num!=0) {
+			num = num/10;
+			cantidad++;
+		}
+		if(cantidad==9) {
+			DAO_Cliente clienteDao = new DAO_Cliente();
+			clienteDao.modificarDatos(DNI, datos);
+			dm.addRow(datos);
+		}else {
+			JOptionPane.showMessageDialog(null, "Numero de telefono mal escrito");
+		}
+		}catch(NumberFormatException nfe) {
+			JOptionPane.showMessageDialog(null, "Numero de telefono mal escrito");
+		}
+		
 	}
+	
+	private void tableMouseClicked(java.awt.event.MouseEvent evt) {  
+		int selectedRow = table.getSelectedRow();
+		DNI = dm.getValueAt(selectedRow, 0).toString();
+        textField.setText(dm.getValueAt(selectedRow, 1).toString());
+        textField_1.setText(dm.getValueAt(selectedRow, 2).toString());
+        textField_2.setText(dm.getValueAt(selectedRow, 3).toString());
+        textField_3.setText(dm.getValueAt(selectedRow, 4).toString());
+    }  
 }

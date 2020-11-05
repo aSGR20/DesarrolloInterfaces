@@ -11,11 +11,15 @@ import java.awt.Color;
 import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+
+import Proyecto.DAO_Cliente;
+import Proyecto.DAO_Vehiculo;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,12 +30,14 @@ import java.awt.event.ActionEvent;
 
 public class GUI_VerVehiculos extends javax.swing.JFrame{
 
+	private int Num_Serie;
+	private DefaultTableModel dm;
 	private GUI_Ventas menu;
 	private JFrame frame;
 	private JTable table;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField text_Marca;
+	private JTextField text_Modelo;
+	private JTextField text_Precio;
 
 	/**
 	 * Create the application.
@@ -53,6 +59,7 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 		setBounds(100, 100, 667, 482);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
+		DAO_Vehiculo vehiculoDao = new DAO_Vehiculo();
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 139, 139));
@@ -92,19 +99,34 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 		btnVolver.setBounds(10, 378, 134, 46);
 		panel_1.add(btnVolver);
 		
-		table = new JTable();
+		dm = new DefaultTableModel();
+		table = new JTable(dm);
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tableMouseClicked(e);
+			}
+		});
 		JScrollPane scrollPane= new  JScrollPane(table);
 		scrollPane.setLocation(10, 104);
 		scrollPane.setSize(456, 256);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Numero Serie", "Marca", "Modelo", "Precio", "Fecha de Entrada"
-			}
-		));
-		table.getColumnModel().getColumn(0).setPreferredWidth(80);
-		table.getColumnModel().getColumn(4).setPreferredWidth(100);
+		String[]columns = {"Número Serie", "Modelo", "Marca", "Tipo", "Precio", "Fecha Entrada"};
+		for ( int i=0; i<columns.length;i++){
+            dm.addColumn(columns[i]);
+        }
+		Object[]data = new Object[6];
+		for (int i = 0; i < vehiculoDao.recibirDatos().size();i++) {
+			Object[] linea = vehiculoDao.recibirDatos().get(i).toString().split(";");
+			data[0] = linea[0];
+			data[1] = linea[1];
+			data[2] = linea[2];
+			data[3] = linea[3];
+			data[4] = linea[4];
+			data[5] = linea[5];
+			dm.addRow(data);
+		}
+		table.setModel(dm);
+
 		table.setBounds(20, 70, 446, 305);
 		panel_1.add(scrollPane);
 		
@@ -112,6 +134,17 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				modificar();
+				dm.setRowCount(0);
+				for (int i = 0; i < vehiculoDao.recibirDatos().size();i++) {
+					Object[] linea = vehiculoDao.recibirDatos().get(i).toString().split(";");
+					data[0] = linea[0];
+					data[1] = linea[1];
+					data[2] = linea[2];
+					data[3] = linea[3];
+					data[4] = linea[4];
+					data[5] = linea[5];
+					dm.addRow(data);
+				}
 			}
 		});
 		btnModificar.setFont(new Font("SansSerif", Font.BOLD, 12));
@@ -120,28 +153,28 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 		
 		JLabel lbl_Marca = new JLabel("Marca");
 		lbl_Marca.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 12));
-		lbl_Marca.setBounds(10, 11, 43, 14);
+		lbl_Marca.setBounds(10, 55, 43, 14);
 		panel_1.add(lbl_Marca);
 		
-		textField = new JTextField();
-		textField.setBounds(63, 9, 120, 20);
-		panel_1.add(textField);
-		textField.setColumns(10);
+		text_Marca = new JTextField();
+		text_Marca.setBounds(63, 53, 120, 20);
+		panel_1.add(text_Marca);
+		text_Marca.setColumns(10);
 		
 		JLabel lbl_Marca_1 = new JLabel("Modelo");
 		lbl_Marca_1.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 12));
-		lbl_Marca_1.setBounds(10, 51, 43, 14);
+		lbl_Marca_1.setBounds(10, 13, 43, 14);
 		panel_1.add(lbl_Marca_1);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(63, 49, 120, 20);
-		panel_1.add(textField_1);
+		text_Modelo = new JTextField();
+		text_Modelo.setColumns(10);
+		text_Modelo.setBounds(63, 11, 120, 20);
+		panel_1.add(text_Modelo);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(287, 11, 120, 20);
-		panel_1.add(textField_2);
+		text_Precio = new JTextField();
+		text_Precio.setColumns(10);
+		text_Precio.setBounds(287, 11, 120, 20);
+		panel_1.add(text_Precio);
 		
 		JLabel lbl_Precio = new JLabel("Precio");
 		lbl_Precio.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 12));
@@ -156,6 +189,24 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 	}
 	
 	public void modificar() {
-		//COGE EL APARTADO SELECCIONADO DE LA TABLA Y LO RELLENA EN LOS TEXTFIELDS, ACTUALIZAR EL APARTADO SELECCIONADO AL CAMPO
+		try {
+			Object[]datos = new Object[3];
+			datos[0] = text_Marca.getText();
+			datos[1] = text_Modelo.getText();
+			datos[2] = Integer.parseInt(text_Precio.getText());
+				DAO_Vehiculo vehiculoDao = new DAO_Vehiculo();
+				vehiculoDao.modificarDatos(Num_Serie, datos);
+				dm.addRow(datos);
+		}catch(NumberFormatException nfe) {
+				JOptionPane.showMessageDialog(null, "Precio mal escrito");
+			}
 	}
+	
+	private void tableMouseClicked(java.awt.event.MouseEvent evt) {  
+		int selectedRow = table.getSelectedRow();
+		Num_Serie = Integer.parseInt(dm.getValueAt(selectedRow, 0).toString());
+        text_Marca.setText(dm.getValueAt(selectedRow, 2).toString());
+        text_Modelo.setText(dm.getValueAt(selectedRow, 1).toString());
+        text_Precio.setText(dm.getValueAt(selectedRow, 4).toString());
+    } 
 }

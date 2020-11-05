@@ -22,17 +22,21 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import Proyecto.DAO_Vehiculo;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class GUI_VenderVehiculo1 extends javax.swing.JFrame{
 
+	private DefaultTableModel dm;
 	private GUI_Ventas menu;
 	private JFrame frame;
 	private JTable table;
-	private JTextField text_DNI;
-	private JTextField text_Nombre;
-	private JTextField textField;
+	private JTextField text_Marca;
+	private JTextField text_Modelo;
+	private JTextField text_Tipo;
 
 	/**
 	 * Create the application.
@@ -54,6 +58,7 @@ public class GUI_VenderVehiculo1 extends javax.swing.JFrame{
 		setBounds(100, 100, 667, 482);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
+		DAO_Vehiculo vehiculoDao = new DAO_Vehiculo();
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 139, 139));
@@ -93,20 +98,29 @@ public class GUI_VenderVehiculo1 extends javax.swing.JFrame{
 		btnVolver.setBounds(10, 381, 134, 46);
 		panel_1.add(btnVolver);
 		
+		dm = new DefaultTableModel();
 		table = new JTable();
 		table.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		JScrollPane scrollPane= new  JScrollPane(table);
 		scrollPane.setLocation(10, 95);
 		scrollPane.setSize(456, 265);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Numero Serie", "Marca", "Modelo", "Precio", "Fecha de Entrada"
-			}
-		));
-		table.getColumnModel().getColumn(0).setPreferredWidth(80);
-		table.getColumnModel().getColumn(4).setPreferredWidth(100);
+		String[]columns= {"Número Serie", "Modelo", "Marca", "Tipo", "Precio", "Fecha Entrada"};
+		for(int i = 0; i < columns.length;i++) {
+			dm.addColumn(columns[i]);
+		}
+		Object[]data = new Object[6];
+		for(int i = 0; i < vehiculoDao.recibirDatos().size();i++) {
+			Object[]linea = vehiculoDao.recibirDatos().get(i).toString().split(";");
+			data[0] = linea[0];
+			data[1] = linea[1];
+			data[2] = linea[2];
+			data[3] = linea[3];
+			data[4] = linea[4];
+			data[5] = linea[5];
+			dm.addRow(data);
+		}
+		table.setModel(dm);
+		
 		table.setBounds(20, 70, 446, 305);
 		panel_1.add(scrollPane);
 		
@@ -120,23 +134,84 @@ public class GUI_VenderVehiculo1 extends javax.swing.JFrame{
 		lbl_Modelo.setBounds(10, 55, 55, 14);
 		panel_1.add(lbl_Modelo);
 		
-		text_DNI = new JTextField();
-		text_DNI.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		text_DNI.setBounds(74, 12, 134, 20);
-		panel_1.add(text_DNI);
-		text_DNI.setColumns(10);
+		text_Marca = new JTextField();
+		text_Marca.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		text_Marca.setBounds(74, 12, 134, 20);
+		panel_1.add(text_Marca);
+		text_Marca.setColumns(10);
 		
-		text_Nombre = new JTextField();
-		text_Nombre.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		text_Nombre.setColumns(10);
-		text_Nombre.setBounds(74, 52, 134, 20);
-		panel_1.add(text_Nombre);
+		text_Modelo = new JTextField();
+		text_Modelo.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		text_Modelo.setColumns(10);
+		text_Modelo.setBounds(74, 52, 134, 20);
+		panel_1.add(text_Modelo);
 		
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnBuscar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				Object[]datos = new Object[3];
+				if((text_Modelo.getText().equals(""))&&(text_Marca.getText().equals(""))&&(text_Tipo.getText().equals(""))) {
+					vehiculoDao.recibirDatos();
+				}
+				if(!text_Tipo.getText().equals("")) {
+					DAO_Vehiculo vehiculosDao = new DAO_Vehiculo();
+					String tipo = text_Tipo.getText();
+					vehiculosDao.buscarVehiculosTipos(tipo);
+					dm.setRowCount(0);
+					for(int i = 0; i < vehiculosDao.buscarVehiculosTipos(tipo).size();i++) {
+						Object[]linea = vehiculosDao.buscarVehiculosTipos(tipo).toString().split(";");
+						Object[]data = new Object[7];
+						data[0] = linea[0];
+						data[1] = linea[1];
+						data[2] = linea[2];
+						data[3] = linea[3];
+						data[4] = linea[4];
+						data[5] = linea[5];
+						data[6] = linea[6];
+						dm.addRow(data);
+					}
+				}
+				if(!text_Modelo.getText().equals("")) {
+					DAO_Vehiculo vehiculosDao = new DAO_Vehiculo();
+					String modelo = text_Modelo.getText();
+					vehiculosDao.buscarVehiculosModelo(modelo);
+					dm.setRowCount(0);
+					for(int i = 0; i < vehiculosDao.buscarVehiculosModelo(modelo).size();i++) {
+						Object[]linea = vehiculosDao.buscarVehiculosModelo(modelo).toString().split(";");
+						Object[]data = new Object[7];
+						data[0] = linea[0];
+						data[1] = linea[1];
+						data[2] = linea[2];
+						data[3] = linea[3];
+						data[4] = linea[4];
+						data[5] = linea[5];
+						data[6] = linea[6];
+						dm.addRow(data);
+					}
+				}
+				if(!text_Marca.getText().equals("")) {
+					DAO_Vehiculo vehiculosDao = new DAO_Vehiculo();
+					String marca = text_Marca.getText();
+					vehiculosDao.buscarVehiculosMarca(marca);
+					dm.setRowCount(0);
+					for(int i = 0; i < vehiculosDao.buscarVehiculosMarca(marca).size();i++) {
+						Object[]linea = vehiculosDao.buscarVehiculosMarca(marca).toString().split(";");
+						Object[]data = new Object[7];
+						data[0] = linea[0];
+						data[1] = linea[1];
+						data[2] = linea[2];
+						data[3] = linea[3];
+						data[4] = linea[4];
+						data[5] = linea[5];
+						data[6] = linea[6];
+						dm.addRow(data);
+					}
+				}
 			}
 		});
 		btnBuscar.setBounds(336, 50, 89, 23);
@@ -152,16 +227,40 @@ public class GUI_VenderVehiculo1 extends javax.swing.JFrame{
 		btnSiguiente.setBounds(332, 381, 134, 46);
 		panel_1.add(btnSiguiente);
 		
-		JLabel lbl_Precio = new JLabel("Precio");
-		lbl_Precio.setFont(new Font("SansSerif", Font.BOLD, 14));
-		lbl_Precio.setBounds(229, 15, 55, 14);
-		panel_1.add(lbl_Precio);
+		JLabel lbl_Tipo = new JLabel("Tipo");
+		lbl_Tipo.setFont(new Font("SansSerif", Font.BOLD, 14));
+		lbl_Tipo.setBounds(252, 12, 30, 20);
+		panel_1.add(lbl_Tipo);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		textField.setColumns(10);
-		textField.setBounds(292, 12, 134, 20);
-		panel_1.add(textField);
+		text_Tipo = new JTextField();
+		text_Tipo.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		text_Tipo.setColumns(10);
+		text_Tipo.setBounds(292, 12, 134, 20);
+		panel_1.add(text_Tipo);
+		
+		JButton btnReset = new JButton("Resetear");
+		btnReset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				text_Tipo.setText("");
+				text_Modelo.setText("");
+				text_Marca.setText("");
+				dm.setRowCount(0);
+				vehiculoDao.recibirDatos();
+				Object[]data = new Object[6];
+				for(int i = 0; i < vehiculoDao.recibirDatos().size();i++) {
+					Object[]linea = vehiculoDao.recibirDatos().get(i).toString().split(";");
+					data[0] = linea[0];
+					data[1] = linea[1];
+					data[2] = linea[2];
+					data[3] = linea[3];
+					data[4] = linea[4];
+					data[5] = linea[5];
+					dm.addRow(data);
+				}
+			}
+		});
+		btnReset.setBounds(236, 50, 89, 23);
+		panel_1.add(btnReset);
 	}
 
 	public void volver() {
@@ -174,4 +273,5 @@ public class GUI_VenderVehiculo1 extends javax.swing.JFrame{
 		GUI_VenderVehiculo2 propuestaSiguiente = new GUI_VenderVehiculo2(this, menu);
 		this.setVisible(false);
 	}
+
 }
