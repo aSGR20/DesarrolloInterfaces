@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -123,14 +125,22 @@ public class GUI_Login extends javax.swing.JFrame{
 	
 	public void loggear() {
 		String username;
-		char[] password;
+		String password;
 		username = text_User.getText();
-		password = text_Passwd.getPassword();
+		password = text_Passwd.getText();
 		UsuarioLogin usuario = new UsuarioLogin(username, password);
-		boolean usuarioDao = new DAO_Usuario() != null;
-		if(usuarioDao) {
-			GUI_Ventas proponer = new GUI_Ventas(this);
-			this.setVisible(false);
+		DAO_Usuario comprobacion = new DAO_Usuario();
+		if(comprobacion.comprobarUsuario(usuario)) {
+			System.out.println(comprobacion.profesion(usuario));
+			if(comprobacion.profesion(usuario).equals("ventas")) {
+				GUI_Ventas interfazVentas = new GUI_Ventas(this);
+				this.setVisible(false);
+			}else
+			if(comprobacion.profesion(usuario).equals("jefe")) {
+				JOptionPane.showMessageDialog(null, "EN CONSTRUCCIÓN");
+			}
+		}else {
+			JOptionPane.showMessageDialog(null, "Usuario y/o Contraseña incorrectos");
 		}
 	}
 }

@@ -26,6 +26,18 @@ public class DAO_Usuario extends DAO_Abstract {
         return false;
     }
     
+    public String profesion(UsuarioLogin usuario) {
+        try {
+            rs = stm.executeQuery("select profesión from desarrollodeinterfaces.usuario where usuario = '"+usuario.usuario+"' and contraseña = '"+usuario.contraseña+"'");
+            while (rs.next()) {
+            	return rs.getString(1).toLowerCase();
+            }
+        } catch (SQLException ex) {
+            System.out.println("Oh no!");
+        }
+		return null;
+    }
+    
     /**
      * Crea un array de usuarios con los datos de la tabla usuarios de la base de datos.
      * 
@@ -62,7 +74,7 @@ public class DAO_Usuario extends DAO_Abstract {
                     + "`NUSS`, `SueldoBase`, `Correo`, `Profesión`) VALUES ('"+datoUsuario.DNI+"', '"+
                     datoUsuario.usuario+"', '"+datoUsuario.contraseña+"', '"+datoUsuario.nombre+
                     "', '"+datoUsuario.apellidos+"', '"+datoUsuario.NUSS+"', "+
-                    datoUsuario.sueldoBase+", '"+datoUsuario.correo+"', '"+datoUsuario.profesión+"');");
+                    datoUsuario.sueldoBase+", '"+datoUsuario.correo+"', '"+datoUsuario.profesion+"');");
             }
         } catch (SQLException ex) {
             System.out.println("Oh no!");
