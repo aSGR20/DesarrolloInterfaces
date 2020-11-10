@@ -133,7 +133,7 @@ public class GUI_AltaCliente extends javax.swing.JFrame{
 		text_Telefono.setBounds(22, 251, 184, 20);
 		panel_1.add(text_Telefono);
 		
-		JLabel lblTelefono = new JLabel("*Tel\u00E9fono:");
+		JLabel lblTelefono = new JLabel("*Teléfono:");
 		lblTelefono.setFont(new Font("SansSerif", Font.BOLD, 12));
 		lblTelefono.setBounds(22, 226, 140, 14);
 		panel_1.add(lblTelefono);

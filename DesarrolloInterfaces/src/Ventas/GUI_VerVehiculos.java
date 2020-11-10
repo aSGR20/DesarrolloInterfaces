@@ -88,6 +88,101 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnBuscar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Object[]datos = new Object[3];
+				if((text_Modelo.getText().equals(""))&&(text_Marca.getText().equals(""))&&(text_Precio.getText().equals(""))) {
+					vehiculoDao.recibirDatos();
+				}
+				if(!text_Precio.getText().equals("")) {
+					DAO_Vehiculo vehiculosDao = new DAO_Vehiculo();
+					String tipo = text_Precio.getText();
+					vehiculosDao.buscarVehiculosTipos(tipo);
+					dm.setRowCount(0);
+					for(int i = 0; i < vehiculosDao.buscarVehiculosTipos(tipo).size();i++) {
+						Object[]linea = vehiculosDao.buscarVehiculosTipos(tipo).toString().split(";");
+						Object[]data = new Object[7];
+						data[0] = linea[0];
+						data[1] = linea[1];
+						data[2] = linea[2];
+						data[3] = linea[3];
+						data[4] = linea[4];
+						data[5] = linea[5];
+						data[6] = linea[6];
+						dm.addRow(data);
+					}
+				}
+				if(!text_Modelo.getText().equals("")) {
+					DAO_Vehiculo vehiculosDao = new DAO_Vehiculo();
+					String modelo = text_Modelo.getText();
+					vehiculosDao.buscarVehiculosModelo(modelo);
+					dm.setRowCount(0);
+					for(int i = 0; i < vehiculosDao.buscarVehiculosModelo(modelo).size();i++) {
+						Object[]linea = vehiculosDao.buscarVehiculosModelo(modelo).toString().split(";");
+						Object[]data = new Object[7];
+						data[0] = linea[0];
+						data[1] = linea[1];
+						data[2] = linea[2];
+						data[3] = linea[3];
+						data[4] = linea[4];
+						data[5] = linea[5];
+						data[6] = linea[6];
+						dm.addRow(data);
+					}
+				}
+				if(!text_Marca.getText().equals("")) {
+					DAO_Vehiculo vehiculosDao = new DAO_Vehiculo();
+					String marca = text_Marca.getText();
+					vehiculosDao.buscarVehiculosMarca(marca);
+					dm.setRowCount(0);
+					for(int i = 0; i < vehiculosDao.buscarVehiculosMarca(marca).size();i++) {
+						Object[]linea = vehiculosDao.buscarVehiculosMarca(marca).toString().split(";");
+						Object[]data = new Object[7];
+						data[0] = linea[0];
+						data[1] = linea[1];
+						data[2] = linea[2];
+						data[3] = linea[3];
+						data[4] = linea[4];
+						data[5] = linea[5];
+						data[6] = linea[6];
+						dm.addRow(data);
+					}
+				}
+			}
+		});
+		btnBuscar.setBounds(336, 50, 89, 23);
+		panel_1.add(btnBuscar);
+		
+		JButton btnReset = new JButton("Resetear");
+		btnReset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				text_Precio.setText("");
+				text_Modelo.setText("");
+				text_Marca.setText("");
+				dm.setRowCount(0);
+				vehiculoDao.recibirDatos();
+				Object[]data = new Object[6];
+				for(int i = 0; i < vehiculoDao.recibirDatos().size();i++) {
+					Object[]linea = vehiculoDao.recibirDatos().get(i).toString().split(";");
+					data[0] = linea[0];
+					data[1] = linea[1];
+					data[2] = linea[2];
+					data[3] = linea[3];
+					data[4] = linea[4];
+					data[5] = linea[5];
+					dm.addRow(data);
+				}
+			}
+		});
+		btnReset.setBounds(236, 50, 89, 23);
+		panel_1.add(btnReset);
+		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addMouseListener(new MouseAdapter() {
 			@Override

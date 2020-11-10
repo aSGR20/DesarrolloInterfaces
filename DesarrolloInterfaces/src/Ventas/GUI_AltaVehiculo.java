@@ -172,7 +172,7 @@ public class GUI_AltaVehiculo extends javax.swing.JFrame{
 		btnAceptar.setBounds(292, 367, 107, 42);
 		panel_1.add(btnAceptar);
 		
-		JLabel lbl_InfAdicional = new JLabel("Informacion Adicional:");
+		JLabel lbl_InfAdicional = new JLabel("Informaci\u00F3n Adicional:");
 		lbl_InfAdicional.setFont(new Font("SansSerif", Font.BOLD, 12));
 		lbl_InfAdicional.setBounds(173, 297, 140, 14);
 		panel_1.add(lbl_InfAdicional);

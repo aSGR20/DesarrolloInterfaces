@@ -182,7 +182,7 @@ public class GUI_VerClientes extends javax.swing.JFrame{
 		textField_2.setBounds(297, 11, 120, 20);
 		panel_1.add(textField_2);
 		
-		JLabel lbl_Telefono = new JLabel("Telefono");
+		JLabel lbl_Telefono = new JLabel("Tel\u00E9fono");
 		lbl_Telefono.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 12));
 		lbl_Telefono.setBounds(234, 13, 53, 14);
 		panel_1.add(lbl_Telefono);
