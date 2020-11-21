@@ -9,6 +9,7 @@ import java.awt.Color;
 import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 
+import Proyecto.DAO_Usuario;
 import Proyecto.GUI_Login;
 
 import javax.swing.JLabel;
@@ -25,6 +26,7 @@ import java.awt.event.ActionEvent;
 
 public class GUI_Ventas extends javax.swing.JFrame{
 
+	private String nombre;
 	private JFrame frame;
 
 	/**
@@ -51,6 +53,10 @@ public class GUI_Ventas extends javax.swing.JFrame{
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
+	
+	public GUI_Ventas(String nombre, String usuario) {
+		this.nombre = nombre;
+	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -75,7 +81,9 @@ public class GUI_Ventas extends javax.swing.JFrame{
 		panel.add(lblNewLabel);
 		
 		JLabel lbl_Nombre_Empleado = new JLabel("NOMBRE_EMPLEADO");
-		lbl_Nombre_Empleado.setFont(new Font("SansSerif", Font.BOLD, 12));
+		DAO_Usuario usuarioDao = new DAO_Usuario();
+		lbl_Nombre_Empleado.setText(usuarioDao.getName());
+		lbl_Nombre_Empleado.setFont(new Font("SansSerif", Font.BOLD, 16));
 		lbl_Nombre_Empleado.setBounds(26, 126, 122, 14);
 		panel.add(lbl_Nombre_Empleado);
 		
@@ -162,6 +170,11 @@ public class GUI_Ventas extends javax.swing.JFrame{
 		panel_1.add(lbl_ComprobarPropuestas);
 		
 		JButton btnComprobar = new JButton("Comprobar");
+		btnComprobar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				verPropuestas();
+			}
+		});
 		btnComprobar.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		btnComprobar.setBounds(184, 409, 107, 23);
 		panel_1.add(btnComprobar);
@@ -219,6 +232,11 @@ public class GUI_Ventas extends javax.swing.JFrame{
 	
 	public void proponerVehiculo() {
 		GUI_PropuestaVehiculo1 proponer = new GUI_PropuestaVehiculo1(this);
+		this.setVisible(false);
+	}
+	
+	public void verPropuestas() {
+		GUI_VerPropuestas verPropuestas = new GUI_VerPropuestas(this);
 		this.setVisible(false);
 	}
 	

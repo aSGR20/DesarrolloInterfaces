@@ -23,6 +23,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import Proyecto.DAO_Usuario;
 import Proyecto.DAO_Vehiculo;
 
 import java.awt.event.ActionListener;
@@ -72,7 +73,9 @@ public class GUI_VenderVehiculo1 extends javax.swing.JFrame{
 		panel.add(lblNewLabel);
 		
 		JLabel lbl_Nombre_Empleado = new JLabel("NOMBRE_EMPLEADO");
-		lbl_Nombre_Empleado.setFont(new Font("SansSerif", Font.BOLD, 12));
+		DAO_Usuario usuarioDao = new DAO_Usuario();
+		lbl_Nombre_Empleado.setText(usuarioDao.getName());
+		lbl_Nombre_Empleado.setFont(new Font("SansSerif", Font.BOLD, 16));
 		lbl_Nombre_Empleado.setBounds(26, 126, 122, 14);
 		panel.add(lbl_Nombre_Empleado);
 		
@@ -99,7 +102,13 @@ public class GUI_VenderVehiculo1 extends javax.swing.JFrame{
 		panel_1.add(btnVolver);
 		
 		dm = new DefaultTableModel();
-		table = new JTable();
+		table = new JTable(dm);
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tableMouseClicked(e);
+			}
+		});
 		table.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		JScrollPane scrollPane= new  JScrollPane(table);
 		scrollPane.setLocation(10, 95);
@@ -273,5 +282,12 @@ public class GUI_VenderVehiculo1 extends javax.swing.JFrame{
 		GUI_VenderVehiculo2 propuestaSiguiente = new GUI_VenderVehiculo2(this, menu);
 		this.setVisible(false);
 	}
+	
+	private void tableMouseClicked(java.awt.event.MouseEvent evt) {  
+		int selectedRow = table.getSelectedRow();
+        text_Marca.setText(dm.getValueAt(selectedRow, 2).toString());
+        text_Modelo.setText(dm.getValueAt(selectedRow, 1).toString());
+        text_Tipo.setText(dm.getValueAt(selectedRow, 3).toString());
+    }
 
 }

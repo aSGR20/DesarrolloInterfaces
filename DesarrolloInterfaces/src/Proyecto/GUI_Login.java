@@ -26,7 +26,9 @@ import javax.swing.JPasswordField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
 
 public class GUI_Login extends javax.swing.JFrame{
 
@@ -90,15 +92,17 @@ public class GUI_Login extends javax.swing.JFrame{
 		text_User.setColumns(10);
 		
 		JButton btnLogin = new JButton("Login");
+		btnLogin.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode()==KeyEvent.VK_ENTER){
+		            loggear();
+		        }
+			}
+		});
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				loggear();
-			}
-		});
-		btnLogin.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
 			}
 		});
 		btnLogin.setFont(new Font("SansSerif", Font.PLAIN, 12));
@@ -106,6 +110,14 @@ public class GUI_Login extends javax.swing.JFrame{
 		panel.add(btnLogin);
 		
 		text_Passwd = new JPasswordField();
+		text_Passwd.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode()==KeyEvent.VK_ENTER){
+		            loggear();
+		        }
+			}
+		});
 		text_Passwd.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		text_Passwd.setBounds(164, 129, 148, 20);
 		panel.add(text_Passwd);
@@ -131,7 +143,6 @@ public class GUI_Login extends javax.swing.JFrame{
 		UsuarioLogin usuario = new UsuarioLogin(username, password);
 		DAO_Usuario comprobacion = new DAO_Usuario();
 		if(comprobacion.comprobarUsuario(usuario)) {
-			System.out.println(comprobacion.profesion(usuario));
 			if(comprobacion.profesion(usuario).equals("ventas")) {
 				GUI_Ventas interfazVentas = new GUI_Ventas(this);
 				this.setVisible(false);

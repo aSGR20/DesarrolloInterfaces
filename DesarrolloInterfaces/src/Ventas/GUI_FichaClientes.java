@@ -22,6 +22,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import Proyecto.DAO_Usuario;
+
 public class GUI_FichaClientes extends javax.swing.JFrame{
 
 	private JFrame frame;
@@ -75,7 +77,9 @@ public class GUI_FichaClientes extends javax.swing.JFrame{
 		panel.add(lblNewLabel);
 		
 		JLabel lbl_Nombre_Empleado = new JLabel("NOMBRE_EMPLEADO");
-		lbl_Nombre_Empleado.setFont(new Font("SansSerif", Font.BOLD, 12));
+		DAO_Usuario usuarioDao = new DAO_Usuario();
+		lbl_Nombre_Empleado.setText(usuarioDao.getName());
+		lbl_Nombre_Empleado.setFont(new Font("SansSerif", Font.BOLD, 16));
 		lbl_Nombre_Empleado.setBounds(26, 126, 122, 14);
 		panel.add(lbl_Nombre_Empleado);
 		

@@ -10,6 +10,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 
 import Proyecto.DAO_Cliente;
+import Proyecto.DAO_Usuario;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -68,7 +69,9 @@ public class GUI_AltaCliente extends javax.swing.JFrame{
 		panel.add(lblNewLabel);
 		
 		JLabel lbl_Nombre_Empleado = new JLabel("NOMBRE_EMPLEADO");
-		lbl_Nombre_Empleado.setFont(new Font("SansSerif", Font.BOLD, 12));
+		DAO_Usuario usuarioDao = new DAO_Usuario();
+		lbl_Nombre_Empleado.setText(usuarioDao.getName());
+		lbl_Nombre_Empleado.setFont(new Font("SansSerif", Font.BOLD, 16));
 		lbl_Nombre_Empleado.setBounds(26, 126, 122, 14);
 		panel.add(lbl_Nombre_Empleado);
 		

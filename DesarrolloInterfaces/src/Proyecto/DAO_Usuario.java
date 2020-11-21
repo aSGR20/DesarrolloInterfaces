@@ -3,7 +3,13 @@ package Proyecto;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import Ventas.GUI_Ventas;
+
 public class DAO_Usuario extends DAO_Abstract {
+	
+	public static String username;
+	public static String passwd;
+	public static String nombre;
 
     /**
      * Devuelve true si el usuario existe y la contraseña es correcta, o false
@@ -13,10 +19,12 @@ public class DAO_Usuario extends DAO_Abstract {
      * @return boolean
      */
     public boolean comprobarUsuario(UsuarioLogin usuario) {
+    	this.username = usuario.usuario;
+    	this.passwd = usuario.contraseña;
         try {
-            rs = stm.executeQuery("select usuario, contraseña from desarrollodeinterfaces.usuario");
+            rs = stm.executeQuery("select nombre, usuario, contraseña from desarrollodeinterfaces.usuario");
             while (rs.next()) {
-                if (rs.getString(1).toLowerCase().equals(usuario.usuario.toLowerCase()) && rs.getString(2).equals(usuario.contraseña)) {
+                if (rs.getString(2).toLowerCase().equals(usuario.usuario.toLowerCase()) && rs.getString(3).equals(usuario.contraseña)) {
                     return true;
                 }
             }
@@ -57,6 +65,26 @@ public class DAO_Usuario extends DAO_Abstract {
             System.out.println("Oh no!");
         }
         return datosUsuarios;
+    }
+    
+    public String getName() {
+    	try {
+            rs = stm.executeQuery("select nombre from desarrollodeinterfaces.usuario where `usuario` = '"+username+"' and `contraseña` = '"+passwd+"';");
+            while (rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Oh no!");
+        }
+    	return null;
+    }
+    
+    public String getUsername() {
+    	return username;
+    }
+    
+    public String getPasswd() {
+    	return passwd;
     }
 
     /**

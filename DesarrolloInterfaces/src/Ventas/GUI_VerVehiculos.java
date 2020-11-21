@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 
 import Proyecto.DAO_Cliente;
+import Proyecto.DAO_Usuario;
 import Proyecto.DAO_Vehiculo;
 
 import java.awt.event.MouseAdapter;
@@ -73,7 +74,9 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 		panel.add(lblNewLabel);
 		
 		JLabel lbl_Nombre_Empleado = new JLabel("NOMBRE_EMPLEADO");
-		lbl_Nombre_Empleado.setFont(new Font("SansSerif", Font.BOLD, 12));
+		DAO_Usuario usuarioDao = new DAO_Usuario();
+		lbl_Nombre_Empleado.setText(usuarioDao.getName());
+		lbl_Nombre_Empleado.setFont(new Font("SansSerif", Font.BOLD, 16));
 		lbl_Nombre_Empleado.setBounds(26, 126, 122, 14);
 		panel.add(lbl_Nombre_Empleado);
 		
@@ -89,10 +92,6 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 		panel_1.setLayout(null);
 		
 		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
 		btnBuscar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -303,5 +302,5 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
         text_Marca.setText(dm.getValueAt(selectedRow, 2).toString());
         text_Modelo.setText(dm.getValueAt(selectedRow, 1).toString());
         text_Precio.setText(dm.getValueAt(selectedRow, 4).toString());
-    } 
+    }
 }
