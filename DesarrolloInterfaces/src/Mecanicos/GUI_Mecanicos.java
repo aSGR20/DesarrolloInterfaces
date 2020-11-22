@@ -1,15 +1,17 @@
-package Ventas;
+package Mecanicos;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
+
+import Proyecto.DAO_Usuario;
+import Proyecto.GUI_Login;
+
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Font;
@@ -19,39 +21,42 @@ import javax.swing.JDialog;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-import Proyecto.DAO_Usuario;
+public class GUI_Mecanicos extends javax.swing.JFrame{
 
-public class GUI_FichaClientes extends javax.swing.JFrame{
-
+	private String nombre;
 	private JFrame frame;
-	private JTable table;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GUI_FichaClientes window = new GUI_FichaClientes();
+					GUI_Ventas window = new GUI_Ventas();
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the application.
+	 * @wbp.parser.constructor
 	 */
-	public GUI_FichaClientes() {
+	public GUI_Mecanicos(GUI_Login login) {
 		initialize();
 		setLocationRelativeTo(null);
 		setVisible(true);
+	}
+	
+	public GUI_Mecanicos(String nombre, String usuario) {
+		this.nombre = nombre;
 	}
 
 	/**
@@ -59,8 +64,8 @@ public class GUI_FichaClientes extends javax.swing.JFrame{
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		setTitle("Menú Principal");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setTitle("Ficha de clientes");
 		setBounds(100, 100, 667, 482);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
@@ -86,7 +91,7 @@ public class GUI_FichaClientes extends javax.swing.JFrame{
 		JLabel lbl_Ocupacion = new JLabel("OCUPACION");
 		lbl_Ocupacion.setText(usuarioDao.getProfesion());
 		lbl_Ocupacion.setFont(new Font("SansSerif", Font.BOLD, 18));
-		lbl_Ocupacion.setBounds(52, 406, 69, 14);
+		lbl_Ocupacion.setBounds(52, 406, 122, 14);
 		panel.add(lbl_Ocupacion);
 		
 		JPanel panel_1 = new JPanel();
@@ -95,41 +100,41 @@ public class GUI_FichaClientes extends javax.swing.JFrame{
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
-		JButton btnVolver = new JButton("Volver");
-		btnVolver.addMouseListener(new MouseAdapter() {
+		JLabel lbl_Bienvenida = new JLabel("Bienvenid@ ^^ \u00A1Que tengas un buen dia!");
+		lbl_Bienvenida.setFont(new Font("SansSerif", Font.BOLD, 16));
+		lbl_Bienvenida.setBounds(10, 11, 313, 29);
+		panel_1.add(lbl_Bienvenida);
+		
+		JLabel lbl_Comenzar = new JLabel("COMENZAR un TRABAJO");
+		lbl_Comenzar.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 14));
+		lbl_Comenzar.setBounds(10, 89, 179, 14);
+		panel_1.add(lbl_Comenzar);
+		
+		JButton btnComenzar = new JButton("Comenzar");
+		btnComenzar.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		btnComenzar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				altaClientes();
 			}
 		});
-		btnVolver.setFont(new Font("SansSerif", Font.BOLD, 12));
-		btnVolver.setBounds(332, 381, 134, 46);
-		panel_1.add(btnVolver);
+		btnComenzar.setBounds(33, 114, 124, 46);
+		panel_1.add(btnComenzar);
 		
-		JButton btnActualizar = new JButton("Actualizar");
-		btnActualizar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-			}
-		});
-		btnActualizar.setFont(new Font("SansSerif", Font.BOLD, 12));
-		btnActualizar.setBounds(21, 381, 134, 46);
-		panel_1.add(btnActualizar);
+		JLabel lbl_Ver = new JLabel("MIS TRABAJOS");
+		lbl_Ver.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 14));
+		lbl_Ver.setBounds(314, 89, 110, 14);
+		panel_1.add(lbl_Ver);
 		
-		table = new JTable();
-		table.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		JScrollPane scrollPane= new  JScrollPane(table);
-		scrollPane.setLocation(10, 40);
-		scrollPane.setSize(456, 320);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Nombre", "Apellidos", "Telefono", "Domicilio"
-			}
-		));
-		table.setBounds(20, 70, 446, 305);
-		panel_1.add(scrollPane);
+		JButton btnVer = new JButton("Ver");
+		btnVer.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		btnVer.setBounds(306, 114, 124, 46);
+		panel_1.add(btnVer);
+	}
+	
+	public void altaClientes() {
+		GUI_AltaCliente alta = new GUI_AltaCliente(this);
+		this.setVisible(false);
 	}
 }
+

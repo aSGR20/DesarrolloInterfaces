@@ -1,4 +1,4 @@
-package Ventas;
+package Mecanicos;
 
 import java.awt.EventQueue;
 
@@ -18,21 +18,23 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 
+import Proyecto.DAO_Cliente;
+import Proyecto.DAO_Usuario;
+import Proyecto.DAO_Vehiculo;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
-import Proyecto.DAO_Usuario;
-import Proyecto.DAO_Vehiculo;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class GUI_VenderVehiculo1 extends javax.swing.JFrame{
+public class GUI_PropuestaVehiculo2 extends javax.swing.JFrame{
 
+	private GUI_PropuestaVehiculo1 propuestaNombre;
+	private String DNI, Nombre, Marca, Modelo, Tipo, Fech_Entrada;
+	private GUI_Mecanicos menu;
 	private DefaultTableModel dm;
-	private GUI_Ventas menu;
 	private JFrame frame;
 	private JTable table;
 	private JTextField text_Marca;
@@ -42,11 +44,16 @@ public class GUI_VenderVehiculo1 extends javax.swing.JFrame{
 	/**
 	 * Create the application.
 	 */
-	public GUI_VenderVehiculo1(GUI_Ventas menu) {
+	public GUI_PropuestaVehiculo2(GUI_PropuestaVehiculo1 propuestaNombre, GUI_Mecanicos menu) {
 		initialize();
+		this.propuestaNombre = propuestaNombre;
 		this.menu = menu;
 		setLocationRelativeTo(null);
 		setVisible(true);
+	}
+	
+	public GUI_PropuestaVehiculo2() {
+		
 	}
 
 	/**
@@ -55,7 +62,7 @@ public class GUI_VenderVehiculo1 extends javax.swing.JFrame{
 	private void initialize() {
 		frame = new JFrame();
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setTitle("Venta de vehículos");
+		setTitle("Propuesta de vehículos");
 		setBounds(100, 100, 667, 482);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
@@ -82,7 +89,7 @@ public class GUI_VenderVehiculo1 extends javax.swing.JFrame{
 		JLabel lbl_Ocupacion = new JLabel("OCUPACION");
 		lbl_Ocupacion.setText(usuarioDao.getProfesion());
 		lbl_Ocupacion.setFont(new Font("SansSerif", Font.BOLD, 18));
-		lbl_Ocupacion.setBounds(52, 406, 69, 14);
+		lbl_Ocupacion.setBounds(52, 406, 122, 14);
 		panel.add(lbl_Ocupacion);
 		
 		JPanel panel_1 = new JPanel();
@@ -104,23 +111,17 @@ public class GUI_VenderVehiculo1 extends javax.swing.JFrame{
 		
 		dm = new DefaultTableModel();
 		table = new JTable(dm);
-		table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				tableMouseClicked(e);
-			}
-		});
 		table.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		JScrollPane scrollPane= new  JScrollPane(table);
 		scrollPane.setLocation(10, 95);
 		scrollPane.setSize(456, 265);
-		String[]columns= {"Número Serie", "Modelo", "Marca", "Tipo", "Precio", "Fecha Entrada"};
-		for(int i = 0; i < columns.length;i++) {
-			dm.addColumn(columns[i]);
-		}
+		String[]columns = {"Número Serie", "Modelo", "Marca", "Tipo", "Precio", "Fecha Entrada"};
+		for ( int i=0; i<columns.length;i++){
+            dm.addColumn(columns[i]);
+        }
 		Object[]data = new Object[6];
-		for(int i = 0; i < vehiculoDao.recibirDatos().size();i++) {
-			Object[]linea = vehiculoDao.recibirDatos().get(i).toString().split(";");
+		for (int i = 0; i < vehiculoDao.recibirDatos().size();i++) {
+			Object[] linea = vehiculoDao.recibirDatos().get(i).toString().split(";");
 			data[0] = linea[0];
 			data[1] = linea[1];
 			data[2] = linea[2];
@@ -130,7 +131,12 @@ public class GUI_VenderVehiculo1 extends javax.swing.JFrame{
 			dm.addRow(data);
 		}
 		table.setModel(dm);
-		
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tableMouseClicked(e);
+			}
+		});
 		table.setBounds(20, 70, 446, 305);
 		panel_1.add(scrollPane);
 		
@@ -157,10 +163,6 @@ public class GUI_VenderVehiculo1 extends javax.swing.JFrame{
 		panel_1.add(text_Modelo);
 		
 		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
 		btnBuscar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -230,7 +232,7 @@ public class GUI_VenderVehiculo1 extends javax.swing.JFrame{
 		JButton btnSiguiente = new JButton("Siguiente");
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				siguienteVenta();
+				proponerOtro();
 			}
 		});
 		btnSiguiente.setFont(new Font("SansSerif", Font.BOLD, 12));
@@ -239,7 +241,7 @@ public class GUI_VenderVehiculo1 extends javax.swing.JFrame{
 		
 		JLabel lbl_Tipo = new JLabel("Tipo");
 		lbl_Tipo.setFont(new Font("SansSerif", Font.BOLD, 14));
-		lbl_Tipo.setBounds(252, 12, 30, 20);
+		lbl_Tipo.setBounds(253, 12, 55, 20);
 		panel_1.add(lbl_Tipo);
 		
 		text_Tipo = new JTextField();
@@ -249,6 +251,8 @@ public class GUI_VenderVehiculo1 extends javax.swing.JFrame{
 		panel_1.add(text_Tipo);
 		
 		JButton btnReset = new JButton("Resetear");
+		btnReset.setBounds(237, 50, 89, 23);
+		panel_1.add(btnReset);
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				text_Tipo.setText("");
@@ -269,19 +273,38 @@ public class GUI_VenderVehiculo1 extends javax.swing.JFrame{
 				}
 			}
 		});
-		btnReset.setBounds(236, 50, 89, 23);
-		panel_1.add(btnReset);
 	}
 
 	public void volver() {
 		this.setVisible(false);
 		this.dispose();
-		menu.setVisible(true);
+		propuestaNombre.setVisible(true);
 	}
 	
-	public void siguienteVenta() {
-		GUI_VenderVehiculo2 propuestaSiguiente = new GUI_VenderVehiculo2(this, menu);
-		this.setVisible(false);
+	public void proponerOtro() {
+		int boton = JOptionPane.showConfirmDialog(null, "¿Desea proponer otro vehículo?", "Finalizar", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		try {
+			int selectedRow = table.getSelectedRow();
+			Marca = dm.getValueAt(selectedRow, 2).toString();
+			Modelo = dm.getValueAt(selectedRow, 1).toString();
+			Tipo = dm.getValueAt(selectedRow, 3).toString();
+			Fech_Entrada = dm.getValueAt(selectedRow, 5).toString();
+		}catch(ArrayIndexOutOfBoundsException aiooe) {
+			JOptionPane.showMessageDialog(null, "Señala el vehículo el que le vas a proponer a la persona");
+		}catch(NullPointerException npe) {
+			JOptionPane.showMessageDialog(null, "Señala el vehículo el que le vas a proponer a la persona");
+		}
+        if ( boton == JOptionPane.YES_OPTION){
+        	DAO_Cliente clienteDao = new DAO_Cliente();
+            clienteDao.guardarPropuestas(DNI, Nombre, Marca, Modelo, Tipo, Fech_Entrada);
+        	
+        }else if(boton == JOptionPane.NO_OPTION){
+        	DAO_Cliente clienteDao = new DAO_Cliente();
+        	clienteDao.guardarPropuestas(DNI, Nombre, Marca, Modelo, Tipo, Fech_Entrada);
+        	this.setVisible(false);
+        	this.dispose();
+        	menu.setVisible(true);
+        }
 	}
 	
 	private void tableMouseClicked(java.awt.event.MouseEvent evt) {  
@@ -290,5 +313,9 @@ public class GUI_VenderVehiculo1 extends javax.swing.JFrame{
         text_Modelo.setText(dm.getValueAt(selectedRow, 1).toString());
         text_Tipo.setText(dm.getValueAt(selectedRow, 3).toString());
     }
-
+	
+	public void guardarPropuesta1(String DNI, String Nombre) {
+		this.DNI = DNI;
+		this.Nombre = Nombre;
+	}
 }

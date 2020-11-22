@@ -1,4 +1,4 @@
-package Ventas;
+package Mecanicos;
 
 import java.awt.EventQueue;
 
@@ -24,32 +24,22 @@ import javax.swing.table.DefaultTableModel;
 
 import Proyecto.DAO_Usuario;
 
-public class GUI_FichaClientes extends javax.swing.JFrame{
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
+public class GUI_ResumenVenta extends javax.swing.JFrame{
+
+	private GUI_VenderVehiculo2 ventaVehiculo;
+	private GUI_Mecanicos menu;
 	private JFrame frame;
-	private JTable table;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUI_FichaClientes window = new GUI_FichaClientes();
-					window.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
 	 */
-	public GUI_FichaClientes() {
+	public GUI_ResumenVenta(GUI_VenderVehiculo2 ventaVehiculo, GUI_Mecanicos menu) {
 		initialize();
+		this.ventaVehiculo = ventaVehiculo;
+		this.menu = menu;
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
@@ -60,7 +50,7 @@ public class GUI_FichaClientes extends javax.swing.JFrame{
 	private void initialize() {
 		frame = new JFrame();
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setTitle("Ficha de clientes");
+		setTitle("Venta de vehículos");
 		setBounds(100, 100, 667, 482);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
@@ -86,7 +76,7 @@ public class GUI_FichaClientes extends javax.swing.JFrame{
 		JLabel lbl_Ocupacion = new JLabel("OCUPACION");
 		lbl_Ocupacion.setText(usuarioDao.getProfesion());
 		lbl_Ocupacion.setFont(new Font("SansSerif", Font.BOLD, 18));
-		lbl_Ocupacion.setBounds(52, 406, 69, 14);
+		lbl_Ocupacion.setBounds(52, 406, 122, 14);
 		panel.add(lbl_Ocupacion);
 		
 		JPanel panel_1 = new JPanel();
@@ -99,37 +89,44 @@ public class GUI_FichaClientes extends javax.swing.JFrame{
 		btnVolver.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				volver();
 			}
 		});
 		btnVolver.setFont(new Font("SansSerif", Font.BOLD, 12));
-		btnVolver.setBounds(332, 381, 134, 46);
+		btnVolver.setBounds(10, 381, 134, 46);
 		panel_1.add(btnVolver);
 		
-		JButton btnActualizar = new JButton("Actualizar");
-		btnActualizar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
+		JLabel lbl_DNI = new JLabel("DNI");
+		lbl_DNI.setFont(new Font("SansSerif", Font.BOLD, 14));
+		lbl_DNI.setBounds(8, 43, 24, 14);
+		panel_1.add(lbl_DNI);
+		
+		JLabel lbl_Nombre = new JLabel("Nombre");
+		lbl_Nombre.setFont(new Font("SansSerif", Font.BOLD, 14));
+		lbl_Nombre.setBounds(176, 43, 55, 14);
+		panel_1.add(lbl_Nombre);
+		
+		JButton btnVender = new JButton("VENDER");
+		btnVender.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				guardar();
 			}
 		});
-		btnActualizar.setFont(new Font("SansSerif", Font.BOLD, 12));
-		btnActualizar.setBounds(21, 381, 134, 46);
-		panel_1.add(btnActualizar);
-		
-		table = new JTable();
-		table.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		JScrollPane scrollPane= new  JScrollPane(table);
-		scrollPane.setLocation(10, 40);
-		scrollPane.setSize(456, 320);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Nombre", "Apellidos", "Telefono", "Domicilio"
-			}
-		));
-		table.setBounds(20, 70, 446, 305);
-		panel_1.add(scrollPane);
+		btnVender.setFont(new Font("SansSerif", Font.BOLD, 12));
+		btnVender.setBounds(332, 381, 134, 46);
+		panel_1.add(btnVender);
+	}
+
+	public void volver() {
+		this.setVisible(false);
+		this.dispose();
+		ventaVehiculo.setVisible(true);
+	}
+	
+	public void guardar() {
+		//AGREGAR TODOS LOS DATOS SELECCIONADOS A LA BASE DE DATOS
+		this.setVisible(false);
+		this.dispose();
+		menu.setVisible(true);
 	}
 }

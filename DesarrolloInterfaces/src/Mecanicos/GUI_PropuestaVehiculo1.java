@@ -1,4 +1,4 @@
-package Ventas;
+package Mecanicos;
 
 import java.awt.EventQueue;
 
@@ -31,7 +31,7 @@ import java.awt.event.ActionEvent;
 
 public class GUI_PropuestaVehiculo1 extends javax.swing.JFrame{
 
-	private GUI_Ventas menu;
+	private GUI_Mecanicos menu;
 	private String DNI, Nombre;
 	private DefaultTableModel dm;
 	private JFrame frame;
@@ -42,7 +42,7 @@ public class GUI_PropuestaVehiculo1 extends javax.swing.JFrame{
 	/**
 	 * Create the application.
 	 */
-	public GUI_PropuestaVehiculo1(GUI_Ventas menu) {
+	public GUI_PropuestaVehiculo1(GUI_Mecanicos menu) {
 		initialize();
 		this.menu = menu;
 		setLocationRelativeTo(null);
@@ -83,7 +83,7 @@ public class GUI_PropuestaVehiculo1 extends javax.swing.JFrame{
 		JLabel lbl_Ocupacion = new JLabel("OCUPACION");
 		lbl_Ocupacion.setText(usuarioDao.getProfesion());
 		lbl_Ocupacion.setFont(new Font("SansSerif", Font.BOLD, 18));
-		lbl_Ocupacion.setBounds(52, 406, 69, 14);
+		lbl_Ocupacion.setBounds(52, 406, 122, 14);
 		panel.add(lbl_Ocupacion);
 		
 		JPanel panel_1 = new JPanel();

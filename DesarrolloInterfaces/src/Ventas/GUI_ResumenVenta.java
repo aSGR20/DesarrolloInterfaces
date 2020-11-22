@@ -74,7 +74,8 @@ public class GUI_ResumenVenta extends javax.swing.JFrame{
 		panel.add(lbl_Nombre_Empleado);
 		
 		JLabel lbl_Ocupacion = new JLabel("OCUPACION");
-		lbl_Ocupacion.setFont(new Font("SansSerif", Font.BOLD, 12));
+		lbl_Ocupacion.setText(usuarioDao.getProfesion());
+		lbl_Ocupacion.setFont(new Font("SansSerif", Font.BOLD, 18));
 		lbl_Ocupacion.setBounds(52, 406, 69, 14);
 		panel.add(lbl_Ocupacion);
 		

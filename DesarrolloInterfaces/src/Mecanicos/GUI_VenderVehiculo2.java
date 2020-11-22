@@ -1,4 +1,4 @@
-package Ventas;
+package Mecanicos;
 
 import java.awt.EventQueue;
 
@@ -31,7 +31,7 @@ import java.awt.event.ActionEvent;
 public class GUI_VenderVehiculo2 extends javax.swing.JFrame{
 
 	private DefaultTableModel dm;
-	private GUI_Ventas menu;
+	private GUI_Mecanicos menu;
 	private GUI_VenderVehiculo1 ventaNombre;
 	private JFrame frame;
 	private JTable table;
@@ -40,7 +40,7 @@ public class GUI_VenderVehiculo2 extends javax.swing.JFrame{
 	/**
 	 * Create the application.
 	 */
-	public GUI_VenderVehiculo2(GUI_VenderVehiculo1 ventaNombre, GUI_Ventas menu) {
+	public GUI_VenderVehiculo2(GUI_VenderVehiculo1 ventaNombre, GUI_Mecanicos menu) {
 		initialize();
 		this.menu = menu;
 		this.ventaNombre = ventaNombre;
@@ -81,7 +81,7 @@ public class GUI_VenderVehiculo2 extends javax.swing.JFrame{
 		JLabel lbl_Ocupacion = new JLabel("OCUPACION");
 		lbl_Ocupacion.setText(usuarioDao.getProfesion());
 		lbl_Ocupacion.setFont(new Font("SansSerif", Font.BOLD, 18));
-		lbl_Ocupacion.setBounds(52, 406, 69, 14);
+		lbl_Ocupacion.setBounds(52, 406, 122, 14);
 		panel.add(lbl_Ocupacion);
 		
 		JPanel panel_1 = new JPanel();

@@ -16,6 +16,7 @@ import java.io.IOException;
 
 import javax.swing.JTextField;
 
+import Mecanicos.GUI_Mecanicos;
 import Ventas.GUI_PropuestaVehiculo1;
 import Ventas.GUI_Ventas;
 
@@ -147,6 +148,14 @@ public class GUI_Login extends javax.swing.JFrame{
 				GUI_Ventas interfazVentas = new GUI_Ventas(this);
 				this.setVisible(false);
 			}else
+				if(comprobacion.profesion(usuario).equals("mecánico")) {
+					GUI_Mecanicos interfazMecanicos = new GUI_Mecanicos(this);
+					this.setVisible(false);
+				}else
+					if(comprobacion.profesion(usuario).equals("mecánico_jefe")) {
+						//GUI_MecanicosJefe interfazMecanicos = new GUI_MecanicosJefe(this);
+						this.setVisible(false);
+					}else
 			if(comprobacion.profesion(usuario).equals("jefe")) {
 				JOptionPane.showMessageDialog(null, "EN CONSTRUCCIÓN");
 			}

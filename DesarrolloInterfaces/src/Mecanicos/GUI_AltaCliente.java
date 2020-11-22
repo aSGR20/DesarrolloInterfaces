@@ -1,4 +1,4 @@
-package Ventas;
+package Mecanicos;
 
 import java.awt.EventQueue;
 
@@ -27,7 +27,7 @@ import java.awt.event.ActionEvent;
 
 public class GUI_AltaCliente extends javax.swing.JFrame{
 
-	private GUI_Ventas menu;
+	private GUI_Mecanicos menu;
 	private JFrame frame;
 	private JTextField text_Nombre;
 	private JTextField text_Apellidos;
@@ -39,7 +39,7 @@ public class GUI_AltaCliente extends javax.swing.JFrame{
 	/**
 	 * Create the application.
 	 */	
-	public GUI_AltaCliente(GUI_Ventas menu) {
+	public GUI_AltaCliente(GUI_Mecanicos menu) {
 		initialize();
 		setLocationRelativeTo(null);
 		this.menu = menu;
@@ -78,7 +78,7 @@ public class GUI_AltaCliente extends javax.swing.JFrame{
 		JLabel lbl_Ocupacion = new JLabel("OCUPACION");
 		lbl_Ocupacion.setText(usuarioDao.getProfesion());
 		lbl_Ocupacion.setFont(new Font("SansSerif", Font.BOLD, 18));
-		lbl_Ocupacion.setBounds(52, 406, 69, 14);
+		lbl_Ocupacion.setBounds(52, 406, 122, 14);
 		panel.add(lbl_Ocupacion);
 		
 		JPanel panel_1 = new JPanel();
