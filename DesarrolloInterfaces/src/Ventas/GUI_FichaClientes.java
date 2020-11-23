@@ -72,7 +72,7 @@ public class GUI_FichaClientes extends javax.swing.JFrame{
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\sebas\\eclipse-workspace\\DesarrolloInterfaces\\src\\images\\myLogo_Login.png"));
+		lblNewLabel.setIcon(new ImageIcon(".\\src\\images\\myLogo_Login.png"));
 		lblNewLabel.setBounds(26, 48, 122, 55);
 		panel.add(lblNewLabel);
 		

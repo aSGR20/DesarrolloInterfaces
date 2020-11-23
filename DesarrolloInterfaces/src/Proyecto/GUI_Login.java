@@ -124,7 +124,7 @@ public class GUI_Login extends javax.swing.JFrame{
 		panel.add(text_Passwd);
 		
 		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\sebas\\eclipse-workspace\\DesarrolloInterfaces\\src\\images\\myLogo_Login.png"));
+		lblNewLabel_2.setIcon(new ImageIcon(".\\src\\images\\myLogo_Login.png"));
 		lblNewLabel_2.setBounds(149, 23, 122, 55);
 		panel.add(lblNewLabel_2);
 		

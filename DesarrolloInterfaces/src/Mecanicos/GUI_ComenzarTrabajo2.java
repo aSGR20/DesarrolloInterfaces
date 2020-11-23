@@ -29,9 +29,9 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class GUI_PropuestaVehiculo2 extends javax.swing.JFrame{
+public class GUI_ComenzarTrabajo2 extends javax.swing.JFrame{
 
-	private GUI_PropuestaVehiculo1 propuestaNombre;
+	private GUI_ComenzarTrabajo1 propuestaNombre;
 	private String DNI, Nombre, Marca, Modelo, Tipo, Fech_Entrada;
 	private GUI_Mecanicos menu;
 	private DefaultTableModel dm;
@@ -44,7 +44,7 @@ public class GUI_PropuestaVehiculo2 extends javax.swing.JFrame{
 	/**
 	 * Create the application.
 	 */
-	public GUI_PropuestaVehiculo2(GUI_PropuestaVehiculo1 propuestaNombre, GUI_Mecanicos menu) {
+	public GUI_ComenzarTrabajo2(GUI_ComenzarTrabajo1 propuestaNombre, GUI_Mecanicos menu) {
 		initialize();
 		this.propuestaNombre = propuestaNombre;
 		this.menu = menu;
@@ -52,7 +52,7 @@ public class GUI_PropuestaVehiculo2 extends javax.swing.JFrame{
 		setVisible(true);
 	}
 	
-	public GUI_PropuestaVehiculo2() {
+	public GUI_ComenzarTrabajo2() {
 		
 	}
 

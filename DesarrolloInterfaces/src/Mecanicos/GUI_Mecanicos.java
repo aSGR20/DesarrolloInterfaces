@@ -77,7 +77,7 @@ public class GUI_Mecanicos extends javax.swing.JFrame{
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\sebas\\eclipse-workspace\\DesarrolloInterfaces\\src\\images\\myLogo_Login.png"));
+		lblNewLabel.setIcon(new ImageIcon(".\\src\\images\\myLogo_Login.png"));
 		lblNewLabel.setBounds(26, 48, 122, 55);
 		panel.add(lblNewLabel);
 		
@@ -115,7 +115,7 @@ public class GUI_Mecanicos extends javax.swing.JFrame{
 		btnComenzar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				altaClientes();
+				comenzarTrabajos();
 			}
 		});
 		btnComenzar.setBounds(33, 114, 124, 46);
@@ -127,13 +127,23 @@ public class GUI_Mecanicos extends javax.swing.JFrame{
 		panel_1.add(lbl_Ver);
 		
 		JButton btnVer = new JButton("Ver");
+		btnVer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				verTrabajos();
+			}
+		});
 		btnVer.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		btnVer.setBounds(306, 114, 124, 46);
 		panel_1.add(btnVer);
 	}
 	
-	public void altaClientes() {
-		GUI_AltaCliente alta = new GUI_AltaCliente(this);
+	public void comenzarTrabajos() {
+		GUI_ComenzarTrabajo1 comenzar = new GUI_ComenzarTrabajo1(this);
+		this.setVisible(false);
+	}
+	
+	public void verTrabajos() {
+		GUI_VerTrabajos ver = new GUI_VerTrabajos(this);
 		this.setVisible(false);
 	}
 }
