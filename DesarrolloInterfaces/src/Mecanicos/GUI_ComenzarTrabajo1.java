@@ -58,7 +58,7 @@ public class GUI_ComenzarTrabajo1 extends javax.swing.JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		DAO_Cliente clienteDao = new DAO_Cliente();
-		GUI_ComenzarTrabajo2 propuesta = new GUI_ComenzarTrabajo2();
+		GUI_ComenzarTrabajo2 siguiente = new GUI_ComenzarTrabajo2();
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 139, 139));
@@ -113,7 +113,7 @@ public class GUI_ComenzarTrabajo1 extends javax.swing.JFrame{
 		JScrollPane scrollPane= new  JScrollPane(table);
 		scrollPane.setLocation(10, 38);
 		scrollPane.setSize(456, 265);
-		String[]columns = {"DNI", "Nombre", "Apellidos", "Telefono", "Domicilio"};
+		String[]columns = {"Número Incidencia", "Problema", "Tiempo Estimado", "Piezas", "Teléfono"};
 		for ( int i=0; i<columns.length;i++){
             dm.addColumn(columns[i]);
         }
@@ -150,9 +150,16 @@ public class GUI_ComenzarTrabajo1 extends javax.swing.JFrame{
 	}
 	
 	public void siguientePaso() {
-		int selectedRow = table.getSelectedRow();
-		NumIncidencia= dm.getValueAt(selectedRow, 0).toString();
-			
+		try {
+			int selectedRow = table.getSelectedRow();
+			NumIncidencia= dm.getValueAt(selectedRow, 0).toString();
+			GUI_ComenzarTrabajo2 siguiente = new GUI_ComenzarTrabajo2(this, menu);
+			this.setVisible(false);
+		}catch(ArrayIndexOutOfBoundsException aiooe) {
+			JOptionPane.showMessageDialog(null, "Señala la reparación ha realizar");
+		}catch(NullPointerException npe) {
+			JOptionPane.showMessageDialog(null, "Señala la reparación ha realizar");
+		}
 	}
 	
 	private void tableMouseClicked(java.awt.event.MouseEvent evt) {  
