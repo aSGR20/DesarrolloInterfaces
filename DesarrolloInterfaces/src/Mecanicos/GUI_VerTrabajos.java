@@ -109,6 +109,9 @@ public class GUI_VerTrabajos extends javax.swing.JFrame{
 		dm = new DefaultTableModel();
 		table = new JTable(dm);
 		table.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		table.setBackground(Color.yellow);
+		table.getTableHeader().setBackground(Color.orange);
+		table.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 12));
 		JScrollPane scrollPane= new  JScrollPane(table);
 		scrollPane.setLocation(10, 57);
 		scrollPane.setSize(456, 256);

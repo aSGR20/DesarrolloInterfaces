@@ -121,7 +121,9 @@ public class GUI_FichaClientes extends javax.swing.JFrame{
 		panel_1.add(btnActualizar);
 		
 		table = new JTable();
-		table.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		table.setFont(new Font("SansSerif", Font.PLAIN, 12));table.setBackground(Color.yellow);
+		table.getTableHeader().setBackground(Color.orange);
+		table.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 12));
 		JScrollPane scrollPane= new  JScrollPane(table);
 		scrollPane.setLocation(10, 40);
 		scrollPane.setSize(456, 320);

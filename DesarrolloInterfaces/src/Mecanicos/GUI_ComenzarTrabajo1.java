@@ -113,6 +113,10 @@ public class GUI_ComenzarTrabajo1 extends javax.swing.JFrame{
 			}
 		});
 		table.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		table.setBackground(Color.yellow);
+		table.getTableHeader().setBackground(Color.orange);
+		table.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 12));
+		table.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		JScrollPane scrollPane= new  JScrollPane(table);
 		scrollPane.setLocation(10, 38);
 		scrollPane.setSize(456, 265);

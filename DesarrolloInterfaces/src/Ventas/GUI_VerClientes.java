@@ -119,6 +119,9 @@ public class GUI_VerClientes extends javax.swing.JFrame{
 			}
 		});
 		table.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		table.setBackground(Color.yellow);
+		table.getTableHeader().setBackground(Color.orange);
+		table.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 12));
 		JScrollPane scrollPane= new  JScrollPane(table);
 		scrollPane.setLocation(10, 104);
 		scrollPane.setSize(456, 256);

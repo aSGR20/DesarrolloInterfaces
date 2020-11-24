@@ -31,6 +31,8 @@ import Proyecto.DAO_Usuario;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
 
 public class GUI_VerPropuestas extends javax.swing.JFrame{
 
@@ -112,6 +114,7 @@ public class GUI_VerPropuestas extends javax.swing.JFrame{
 		
 		dm = new DefaultTableModel();
 		table = new JTable(dm);
+		table.setBackground(new Color(255, 255, 0));
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -119,6 +122,9 @@ public class GUI_VerPropuestas extends javax.swing.JFrame{
 			}
 		});
 		table.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		table.setBackground(Color.yellow);
+		table.getTableHeader().setBackground(Color.orange);
+		table.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 12));
 		JScrollPane scrollPane= new  JScrollPane(table);
 		scrollPane.setLocation(10, 104);
 		scrollPane.setSize(456, 256);

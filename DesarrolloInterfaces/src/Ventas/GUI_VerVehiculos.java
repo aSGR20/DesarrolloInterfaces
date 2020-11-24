@@ -199,6 +199,10 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 		
 		dm = new DefaultTableModel();
 		table = new JTable(dm);
+		table.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		table.setBackground(Color.yellow);
+		table.getTableHeader().setBackground(Color.orange);
+		table.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 12));
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
