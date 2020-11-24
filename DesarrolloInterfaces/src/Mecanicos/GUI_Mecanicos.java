@@ -107,7 +107,7 @@ public class GUI_Mecanicos extends javax.swing.JFrame{
 		
 		JLabel lbl_Comenzar = new JLabel("COMENZAR un TRABAJO");
 		lbl_Comenzar.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 14));
-		lbl_Comenzar.setBounds(10, 89, 179, 14);
+		lbl_Comenzar.setBounds(10, 82, 179, 14);
 		panel_1.add(lbl_Comenzar);
 		
 		JButton btnComenzar = new JButton("Comenzar");
@@ -118,12 +118,12 @@ public class GUI_Mecanicos extends javax.swing.JFrame{
 				comenzarTrabajos();
 			}
 		});
-		btnComenzar.setBounds(33, 114, 124, 46);
+		btnComenzar.setBounds(33, 107, 124, 46);
 		panel_1.add(btnComenzar);
 		
 		JLabel lbl_Ver = new JLabel("MIS TRABAJOS");
 		lbl_Ver.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 14));
-		lbl_Ver.setBounds(314, 89, 110, 14);
+		lbl_Ver.setBounds(308, 82, 110, 14);
 		panel_1.add(lbl_Ver);
 		
 		JButton btnVer = new JButton("Ver");
@@ -133,8 +133,26 @@ public class GUI_Mecanicos extends javax.swing.JFrame{
 			}
 		});
 		btnVer.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		btnVer.setBounds(306, 114, 124, 46);
+		btnVer.setBounds(296, 107, 124, 46);
 		panel_1.add(btnVer);
+		
+		
+		//if(usuarioDao.getProfesion().equals("mecánico_jefe")) {
+			JButton btnAnyadir = new JButton("A\u00F1adir");
+			btnAnyadir.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					anyadirTrabajo();
+				}
+			});
+			btnAnyadir.setFont(new Font("SansSerif", Font.PLAIN, 16));
+			btnAnyadir.setBounds(166, 240, 124, 46);
+			panel_1.add(btnAnyadir);
+			
+			JLabel lbl_Anyadir = new JLabel("A\u00D1ADIR un TRABAJO");
+			lbl_Anyadir.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 14));
+			lbl_Anyadir.setBounds(154, 215, 147, 14);
+			panel_1.add(lbl_Anyadir);
+		//}
 	}
 	
 	public void comenzarTrabajos() {
@@ -144,6 +162,11 @@ public class GUI_Mecanicos extends javax.swing.JFrame{
 	
 	public void verTrabajos() {
 		GUI_VerTrabajos ver = new GUI_VerTrabajos(this);
+		this.setVisible(false);
+	}
+	
+	public void anyadirTrabajo() {
+		GUI_AnyadirTrabajos1 anyadir = new GUI_AnyadirTrabajos1(this);
 		this.setVisible(false);
 	}
 }

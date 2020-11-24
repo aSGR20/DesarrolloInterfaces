@@ -27,18 +27,20 @@ import Proyecto.DAO_Usuario;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class GUI_ResumenVenta extends javax.swing.JFrame{
+public class GUI_AnyadirTrabajos3 extends javax.swing.JFrame{
 
-	private GUI_VenderVehiculo2 ventaVehiculo;
-	private GUI_Mecanicos menu;
+	private String problema, tiempoEstimado, piezas;
 	private JFrame frame;
+	private GUI_AnyadirTrabajos2 menu;
+	private JTextField textProblema;
+	private JTextField textPiezas;
+	private JTextField textTiempo;
 
 	/**
 	 * Create the application.
 	 */
-	public GUI_ResumenVenta(GUI_VenderVehiculo2 ventaVehiculo, GUI_Mecanicos menu) {
+	public GUI_AnyadirTrabajos3(GUI_AnyadirTrabajos2 menu) {
 		initialize();
-		this.ventaVehiculo = ventaVehiculo;
 		this.menu = menu;
 		setLocationRelativeTo(null);
 		setVisible(true);
@@ -50,7 +52,7 @@ public class GUI_ResumenVenta extends javax.swing.JFrame{
 	private void initialize() {
 		frame = new JFrame();
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setTitle("Venta de vehículos");
+		setTitle("Añadir trabajo");
 		setBounds(100, 100, 667, 482);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
@@ -62,7 +64,7 @@ public class GUI_ResumenVenta extends javax.swing.JFrame{
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\sebas\\eclipse-workspace\\DesarrolloInterfaces\\src\\images\\myLogo_Login.png"));
+		lblNewLabel.setIcon(new ImageIcon(".\\src\\images\\myLogo_Login.png"));
 		lblNewLabel.setBounds(26, 48, 122, 55);
 		panel.add(lblNewLabel);
 		
@@ -76,7 +78,7 @@ public class GUI_ResumenVenta extends javax.swing.JFrame{
 		JLabel lbl_Ocupacion = new JLabel("OCUPACION");
 		lbl_Ocupacion.setText(usuarioDao.getProfesion());
 		lbl_Ocupacion.setFont(new Font("SansSerif", Font.BOLD, 18));
-		lbl_Ocupacion.setBounds(52, 406, 122, 14);
+		lbl_Ocupacion.setBounds(52, 406, 69, 14);
 		panel.add(lbl_Ocupacion);
 		
 		JPanel panel_1 = new JPanel();
@@ -96,37 +98,60 @@ public class GUI_ResumenVenta extends javax.swing.JFrame{
 		btnVolver.setBounds(10, 381, 134, 46);
 		panel_1.add(btnVolver);
 		
-		JLabel lbl_DNI = new JLabel("DNI");
-		lbl_DNI.setFont(new Font("SansSerif", Font.BOLD, 14));
-		lbl_DNI.setBounds(8, 43, 24, 14);
-		panel_1.add(lbl_DNI);
+		JLabel lbl_Problema = new JLabel("Problema");
+		lbl_Problema.setFont(new Font("SansSerif", Font.BOLD, 14));
+		lbl_Problema.setBounds(108, 44, 73, 14);
+		panel_1.add(lbl_Problema);
 		
-		JLabel lbl_Nombre = new JLabel("Nombre");
-		lbl_Nombre.setFont(new Font("SansSerif", Font.BOLD, 14));
-		lbl_Nombre.setBounds(176, 43, 55, 14);
-		panel_1.add(lbl_Nombre);
+		JLabel lbl_Tiempo = new JLabel("Tiempo Estimado");
+		lbl_Tiempo.setFont(new Font("SansSerif", Font.BOLD, 14));
+		lbl_Tiempo.setBounds(110, 243, 128, 14);
+		panel_1.add(lbl_Tiempo);
 		
-		JButton btnVender = new JButton("VENDER");
-		btnVender.addActionListener(new ActionListener() {
+		JButton btnAnyadir = new JButton("A\u00D1ADIR");
+		btnAnyadir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				guardar();
 			}
 		});
-		btnVender.setFont(new Font("SansSerif", Font.BOLD, 12));
-		btnVender.setBounds(332, 381, 134, 46);
-		panel_1.add(btnVender);
+		btnAnyadir.setFont(new Font("SansSerif", Font.BOLD, 12));
+		btnAnyadir.setBounds(332, 381, 134, 46);
+		panel_1.add(btnAnyadir);
+		
+		JLabel lbl_Piezas = new JLabel("Piezas");
+		lbl_Piezas.setFont(new Font("SansSerif", Font.BOLD, 14));
+		lbl_Piezas.setBounds(110, 146, 73, 14);
+		panel_1.add(lbl_Piezas);
+		
+		textProblema = new JTextField();
+		textProblema.setBounds(118, 66, 224, 46);
+		panel_1.add(textProblema);
+		textProblema.setColumns(10);
+		
+		textPiezas = new JTextField();
+		textPiezas.setColumns(10);
+		textPiezas.setBounds(118, 169, 224, 46);
+		panel_1.add(textPiezas);
+		
+		textTiempo = new JTextField();
+		textTiempo.setColumns(10);
+		textTiempo.setBounds(118, 268, 224, 46);
+		panel_1.add(textTiempo);
 	}
 
 	public void volver() {
 		this.setVisible(false);
 		this.dispose();
-		ventaVehiculo.setVisible(true);
+		menu.setVisible(true);
 	}
 	
 	public void guardar() {
-		//AGREGAR TODOS LOS DATOS SELECCIONADOS A LA BASE DE DATOS
+		problema = textProblema.getText();
+		tiempoEstimado = textTiempo.getText();
+		piezas = textPiezas.getText();
+		//AGREGAR TODOS LOS DATOS SELECCIONADOS Y ESCRITOS A LA BASE DE DATOS
+		
 		this.setVisible(false);
 		this.dispose();
-		menu.setVisible(true);
 	}
 }

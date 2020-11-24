@@ -9,6 +9,7 @@ import java.awt.Color;
 import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 
+import Mecanicos.GUI_AnyadirTrabajos1;
 import Proyecto.DAO_Cliente;
 import Proyecto.DAO_Usuario;
 
@@ -28,6 +29,7 @@ import java.awt.event.ActionEvent;
 public class GUI_AltaCliente extends javax.swing.JFrame{
 
 	private GUI_Ventas menu;
+	private GUI_AnyadirTrabajos1 menuAnyadir;
 	private JFrame frame;
 	private JTextField text_Nombre;
 	private JTextField text_Apellidos;
@@ -43,6 +45,13 @@ public class GUI_AltaCliente extends javax.swing.JFrame{
 		initialize();
 		setLocationRelativeTo(null);
 		this.menu = menu;
+		setVisible(true);
+	}
+	
+	public GUI_AltaCliente(GUI_AnyadirTrabajos1 menuAnyadir) {
+		initialize();
+		setLocationRelativeTo(null);
+		this.menuAnyadir = menuAnyadir;
 		setVisible(true);
 	}
 
@@ -177,14 +186,19 @@ public class GUI_AltaCliente extends javax.swing.JFrame{
 	}
 	
 	public void volver() {
+		DAO_Usuario usuarioDao = new DAO_Usuario();
 		this.setVisible(false);
 		this.dispose();
-		menu.setVisible(true);
+		if(usuarioDao.getProfesion().equals("ventas")) {
+			menu.setVisible(true);
+		}else if (usuarioDao.getProfesion().equals("mecánico_jefe")) {
+			menuAnyadir.setVisible(true);
+		}
 	}
 	
 	public void aceptar() {
+		DAO_Usuario usuarioDao = new DAO_Usuario();
 		try {
-			
 		if((text_DNI.getText().equals(""))||(text_Nombre.getText().equals(""))||(text_Apellidos.getText().equals(""))||(text_Telefono.getText().equals(""))||(text_Domicilio.getText().equals(""))) {
 			JOptionPane.showInternalMessageDialog(null, "Te faltan campos por rellenar");
 		}else
@@ -208,7 +222,11 @@ public class GUI_AltaCliente extends javax.swing.JFrame{
 			clienteDao.agregarDatos(datos);
 			this.setVisible(false);
 			this.dispose();
-			menu.setVisible(true);
+			if(usuarioDao.getProfesion().equals("ventas")) {
+				menu.setVisible(true);
+			}else if (usuarioDao.getProfesion().equals("mecánico_jefe")) {
+				menuAnyadir.setVisible(true);
+			}
 			}
 			
 		}else {
@@ -235,7 +253,11 @@ public class GUI_AltaCliente extends javax.swing.JFrame{
 				clienteDao.agregarDatos(datos);
 				this.setVisible(false);
 				this.dispose();
-				menu.setVisible(true);
+				if(usuarioDao.getProfesion().equals("ventas")) {
+					menu.setVisible(true);
+				}else if (usuarioDao.getProfesion().equals("mecánico_jefe")) {
+					menuAnyadir.setVisible(true);
+				}
 			}
 		}
 		}catch(NumberFormatException nfe) {

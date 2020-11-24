@@ -9,6 +9,7 @@ import java.awt.Color;
 import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 
+import Mecanicos.GUI_AnyadirTrabajos2;
 import Proyecto.DAO_Usuario;
 import Proyecto.DAO_Vehiculo;
 
@@ -28,6 +29,7 @@ import java.awt.event.ActionEvent;
 public class GUI_AltaVehiculo extends javax.swing.JFrame{
 
 	private GUI_Ventas menu;
+	public GUI_AnyadirTrabajos2 menuAnyadir;
 	private JFrame frame;
 	private JTextField text_NumSerie;
 	private JTextField text_Modelo;
@@ -46,6 +48,13 @@ public class GUI_AltaVehiculo extends javax.swing.JFrame{
 		this.menu = menu;
 		setVisible(true);
 	}
+	
+	public GUI_AltaVehiculo(GUI_AnyadirTrabajos2 menuAnyadir) {
+		initialize();
+		setLocationRelativeTo(null);
+		this.menuAnyadir = menuAnyadir;
+		setVisible(true);
+	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -53,7 +62,7 @@ public class GUI_AltaVehiculo extends javax.swing.JFrame{
 	private void initialize() {
 		frame = new JFrame();
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		setTitle("Alta de Vehiculo");
+		setTitle("Añadir trabajo");
 		setBounds(100, 100, 667, 482);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
@@ -189,14 +198,19 @@ public class GUI_AltaVehiculo extends javax.swing.JFrame{
 	}
 	
 	public void volver() {
+		DAO_Usuario usuarioDao = new DAO_Usuario();
 		this.setVisible(false);
 		this.dispose();
-		menu.setVisible(true);
+		if(usuarioDao.getProfesion().equals("ventas")) {
+			menu.setVisible(true);
+		}else if (usuarioDao.getProfesion().equals("mecánico_jefe")) {
+			menuAnyadir.setVisible(true);
+		}
 	}
 	
 	public void aceptar() {
+		DAO_Usuario usuarioDao = new DAO_Usuario();
 		try {
-			
 		if((text_Marca.getText().equals(""))||(text_NumSerie.getText().equals(""))||(text_Modelo.getText().equals(""))||(text_Precio.getText().equals(""))||(text_Tipo.getText().equals(""))||(text_NumSerie.getText().equals(""))||(text_FechEntrada.getText().equals(""))) {
 			JOptionPane.showInternalMessageDialog(null, "Te faltan campos por rellenar");
 		}else
@@ -212,7 +226,11 @@ public class GUI_AltaVehiculo extends javax.swing.JFrame{
 			vehiculoDao.agregarDatos(datos);
 			this.setVisible(false);
 			this.dispose();
-			menu.setVisible(true);
+			if(usuarioDao.getProfesion().equals("ventas")) {
+				menu.setVisible(true);
+			}else if (usuarioDao.getProfesion().equals("mecánico_jefe")) {
+				menuAnyadir.setVisible(true);
+			}
 		}else {
 			Object[]datos = new Object[7];
 			datos[0] = Integer.parseInt(text_NumSerie.getText());
@@ -226,7 +244,11 @@ public class GUI_AltaVehiculo extends javax.swing.JFrame{
 			vehiculoDao.agregarDatos(datos);
 			this.setVisible(false);
 			this.dispose();
-			menu.setVisible(true);
+			if(usuarioDao.getProfesion().equals("ventas")) {
+				menu.setVisible(true);
+			}else if (usuarioDao.getProfesion().equals("mecánico_jefe")) {
+				menuAnyadir.setVisible(true);
+			}
 		}
 		}catch(NumberFormatException nfe) {
 			JOptionPane.showInternalMessageDialog(null, "El Número de Serie o el Precio está mal escrito");
