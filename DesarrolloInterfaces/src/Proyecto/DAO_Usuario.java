@@ -46,6 +46,18 @@ public class DAO_Usuario extends DAO_Abstract {
 		return null;
     }
     
+    public String dni(String usuario, String contrasenya) {
+        try {
+            rs = stm.executeQuery("select DNI_Usuario from desarrollodeinterfaces.usuario where usuario = '"+usuario+"' and contraseña = '"+contrasenya+"'");
+            while (rs.next()) {
+            	return rs.getString(1).toLowerCase();
+            }
+        } catch (SQLException ex) {
+            System.out.println("Oh no!");
+        }
+		return null;
+    }
+    
     /**
      * Crea un array de usuarios con los datos de la tabla usuarios de la base de datos.
      * 

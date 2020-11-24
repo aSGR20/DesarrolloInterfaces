@@ -30,6 +30,8 @@ import java.awt.event.ActionEvent;
 
 public class GUI_VenderVehiculo2 extends javax.swing.JFrame{
 
+	public static String dni, nombre, apellidos;
+	public static int telefono;
 	private DefaultTableModel dm;
 	private GUI_Ventas menu;
 	private GUI_VenderVehiculo1 ventaNombre;
@@ -46,6 +48,10 @@ public class GUI_VenderVehiculo2 extends javax.swing.JFrame{
 		this.ventaNombre = ventaNombre;
 		setLocationRelativeTo(null);
 		setVisible(true);
+	}
+	
+	public GUI_VenderVehiculo2() {
+		
 	}
 
 	/**
@@ -106,6 +112,12 @@ public class GUI_VenderVehiculo2 extends javax.swing.JFrame{
 		
 		dm = new DefaultTableModel();
 		table = new JTable(dm);
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tableMouseClicked(e);
+			}
+		});
 		table.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		table.setBackground(Color.yellow);
 		table.getTableHeader().setBackground(Color.orange);
@@ -209,9 +221,35 @@ public class GUI_VenderVehiculo2 extends javax.swing.JFrame{
 		ventaNombre.setVisible(true);
 	}
 	
+	private void tableMouseClicked(java.awt.event.MouseEvent evt) {
+		int selectedRow = table.getSelectedRow();
+		dni = dm.getValueAt(selectedRow, 0).toString();
+		text_DNI.setText(dm.getValueAt(selectedRow, 0).toString());
+    }
+	
 	public void resumenVenta() {
+		int selectedRow = table.getSelectedRow();
+		nombre = dm.getValueAt(selectedRow, 1).toString();
+		apellidos = dm.getValueAt(selectedRow, 2).toString();
+		telefono = Integer.parseInt(dm.getValueAt(selectedRow, 3).toString());
 		GUI_ResumenVenta resumen = new GUI_ResumenVenta(this, menu);
 		this.setVisible(false);
 		this.dispose();
+	}
+	
+	public String getDni() {
+		return dni;
+	}
+	
+	public static String getNombre() {
+		return nombre;
+	}
+
+	public static String getApellidos() {
+		return apellidos;
+	}
+
+	public static int getTelefono() {
+		return telefono;
 	}
 }

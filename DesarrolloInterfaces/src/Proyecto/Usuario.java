@@ -22,4 +22,8 @@ public class Usuario extends UsuarioLogin {
         return nombre + ";"+ apellidos +";" + NUSS + ";" + correo + ";" + DNI + ";" + sueldoBase;
     }
     
+    public String getDNI() {
+    	return DNI;
+    }
+    
 }

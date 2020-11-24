@@ -46,6 +46,7 @@ public class GUI_AltaCliente extends javax.swing.JFrame{
 		initialize();
 		setLocationRelativeTo(null);
 		this.menu = menu;
+		this.profesion = "ventas";
 		setVisible(true);
 	}
 	
@@ -196,7 +197,7 @@ public class GUI_AltaCliente extends javax.swing.JFrame{
 		this.dispose();
 		if(profesion.equals("Mecánico_Jefe")) {
 			menuAnyadir.setVisible(true);
-		}else{
+		}else if(profesion.equals("ventas")){
 			menu.setVisible(true);
 		}
 	}

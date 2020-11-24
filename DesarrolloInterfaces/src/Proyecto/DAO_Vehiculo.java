@@ -116,6 +116,20 @@ public class DAO_Vehiculo extends DAO_Abstract{
         return datosVehículos;
     }
     
+    public void venderVehiculo(int numSerie, String DNI_Cliente, String plazo, String DNI_Usuario) {
+    	try {
+    		int beneficios = 0;
+    		rs = stm.executeQuery("SELECT Precio FROM vehículo WHERE `Num_Serial` = '"+numSerie+"'");
+    		while(rs.next()) {
+    			beneficios = rs.getInt(1);
+    		}
+    		System.out.println(beneficios);
+        	stm.executeUpdate("INSERT INTO `venta` (`Num_Serial`, `DNI_Cliente`, `DNI_Usuario`, `Beneficios`, `Plazo`) VALUES ("+numSerie+", '"+DNI_Cliente+"', '"+DNI_Usuario+"', "+beneficios+", '"+plazo+"');");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
     public void modificarDatos(int num_serie, Object[]data) {
         try {
         	stm.executeUpdate("UPDATE `vehículo` SET `Marca` = '"+data[0]+"', `Modelo` = '"+data[1]+"', `Precio` = '"+data[2]+"' WHERE `vehículo`.`Num_Serial` = '"+num_serie+"'");

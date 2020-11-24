@@ -31,6 +31,8 @@ import java.awt.event.ActionEvent;
 
 public class GUI_VenderVehiculo1 extends javax.swing.JFrame{
 
+	public static int numSerie, precio;
+	public static String marca, modelo, tipo;
 	private DefaultTableModel dm;
 	private GUI_Ventas menu;
 	private JFrame frame;
@@ -47,6 +49,10 @@ public class GUI_VenderVehiculo1 extends javax.swing.JFrame{
 		this.menu = menu;
 		setLocationRelativeTo(null);
 		setVisible(true);
+	}
+	
+	public GUI_VenderVehiculo1() {
+		
 	}
 
 	/**
@@ -286,15 +292,40 @@ public class GUI_VenderVehiculo1 extends javax.swing.JFrame{
 	}
 	
 	public void siguienteVenta() {
+		int selectedRow = table.getSelectedRow();
+		marca = dm.getValueAt(selectedRow, 2).toString();
+		modelo = dm.getValueAt(selectedRow, 1).toString();
+		tipo = dm.getValueAt(selectedRow, 3).toString();
+		precio = Integer.parseInt(dm.getValueAt(selectedRow, 4).toString());
 		GUI_VenderVehiculo2 propuestaSiguiente = new GUI_VenderVehiculo2(this, menu);
 		this.setVisible(false);
 	}
 	
 	private void tableMouseClicked(java.awt.event.MouseEvent evt) {  
 		int selectedRow = table.getSelectedRow();
+		numSerie = Integer.parseInt(dm.getValueAt(selectedRow, 0).toString());
         text_Marca.setText(dm.getValueAt(selectedRow, 2).toString());
         text_Modelo.setText(dm.getValueAt(selectedRow, 1).toString());
         text_Tipo.setText(dm.getValueAt(selectedRow, 3).toString());
     }
+	
+	public int getNumSerie() {
+		return numSerie;
+	}
 
+	public static int getPrecio() {
+		return precio;
+	}
+
+	public static String getMarca() {
+		return marca;
+	}
+
+	public static String getModelo() {
+		return modelo;
+	}
+
+	public static String getTipo() {
+		return tipo;
+	}
 }
