@@ -50,7 +50,7 @@ public class GUI_ResumenVenta extends javax.swing.JFrame{
 	private void initialize() {
 		frame = new JFrame();
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setTitle("Venta de vehículos");
+		setTitle("Resumen de Venta");
 		setBounds(100, 100, 667, 482);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
@@ -98,12 +98,12 @@ public class GUI_ResumenVenta extends javax.swing.JFrame{
 		
 		JLabel lbl_DNI = new JLabel("DNI");
 		lbl_DNI.setFont(new Font("SansSerif", Font.BOLD, 14));
-		lbl_DNI.setBounds(8, 43, 24, 14);
+		lbl_DNI.setBounds(10, 82, 24, 14);
 		panel_1.add(lbl_DNI);
 		
 		JLabel lbl_Nombre = new JLabel("Nombre");
 		lbl_Nombre.setFont(new Font("SansSerif", Font.BOLD, 14));
-		lbl_Nombre.setBounds(176, 43, 55, 14);
+		lbl_Nombre.setBounds(10, 149, 55, 14);
 		panel_1.add(lbl_Nombre);
 		
 		JButton btnVender = new JButton("VENDER");
@@ -115,6 +115,41 @@ public class GUI_ResumenVenta extends javax.swing.JFrame{
 		btnVender.setFont(new Font("SansSerif", Font.BOLD, 12));
 		btnVender.setBounds(332, 381, 134, 46);
 		panel_1.add(btnVender);
+		
+		JLabel lbldni = new JLabel("insert_text");
+		lbldni.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		lbldni.setBounds(35, 97, 88, 14);
+		panel_1.add(lbldni);
+		
+		JLabel lblnombre = new JLabel("insert_text");
+		lblnombre.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		lblnombre.setBounds(63, 165, 88, 14);
+		panel_1.add(lblnombre);
+		
+		JLabel lbl_Apellidos = new JLabel("Apellidos");
+		lbl_Apellidos.setFont(new Font("SansSerif", Font.BOLD, 14));
+		lbl_Apellidos.setBounds(10, 215, 78, 14);
+		panel_1.add(lbl_Apellidos);
+		
+		JLabel lblapellidos = new JLabel("insert_text");
+		lblapellidos.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		lblapellidos.setBounds(69, 233, 88, 14);
+		panel_1.add(lblapellidos);
+		
+		JLabel lbltelefono = new JLabel("insert_text");
+		lbltelefono.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		lbltelefono.setBounds(70, 289, 88, 14);
+		panel_1.add(lbltelefono);
+		
+		JLabel lbl_Telefono = new JLabel("Tel\u00E9fono");
+		lbl_Telefono.setFont(new Font("SansSerif", Font.BOLD, 14));
+		lbl_Telefono.setBounds(11, 271, 78, 14);
+		panel_1.add(lbl_Telefono);
+		
+		JLabel lbl_Cliente = new JLabel("Cliente");
+		lbl_Cliente.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 18));
+		lbl_Cliente.setBounds(35, 24, 66, 24);
+		panel_1.add(lbl_Cliente);
 	}
 
 	public void volver() {
