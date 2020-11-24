@@ -32,7 +32,7 @@ import java.awt.event.ActionEvent;
 public class GUI_ComenzarTrabajo2 extends javax.swing.JFrame{
 
 	private GUI_ComenzarTrabajo1 volverComenzar;
-	private String DNI, Nombre, Marca, Modelo, Tipo, Fech_Entrada;
+	private String NumIncidencia;
 	private GUI_Mecanicos menu;
 	private DefaultTableModel dm;
 	private JFrame frame;
@@ -43,10 +43,11 @@ public class GUI_ComenzarTrabajo2 extends javax.swing.JFrame{
 	/**
 	 * Create the application.
 	 */
-	public GUI_ComenzarTrabajo2(GUI_ComenzarTrabajo1 propuestaNombre, GUI_Mecanicos menu) {
+	public GUI_ComenzarTrabajo2(GUI_ComenzarTrabajo1 propuestaNombre, GUI_Mecanicos menu, String NumIncidencia) {
 		initialize();
 		this.volverComenzar = propuestaNombre;
 		this.menu = menu;
+		this.NumIncidencia = NumIncidencia;
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
@@ -83,14 +84,17 @@ public class GUI_ComenzarTrabajo2 extends javax.swing.JFrame{
 		DAO_Usuario usuarioDao = new DAO_Usuario();
 		lbl_Nombre_Empleado.setText(usuarioDao.getName());
 		lbl_Nombre_Empleado.setFont(new Font("SansSerif", Font.BOLD, 16));
-		lbl_Nombre_Empleado.setBounds(26, 126, 122, 14);
+		lbl_Nombre_Empleado.setBounds(10, 126, 162, 14);
 		panel.add(lbl_Nombre_Empleado);
 		
 		JLabel lbl_Ocupacion = new JLabel("OCUPACION");
 		lbl_Ocupacion.setText(usuarioDao.getProfesion());
 		lbl_Ocupacion.setFont(new Font("SansSerif", Font.BOLD, 18));
-		lbl_Ocupacion.setBounds(52, 406, 122, 14);
+		lbl_Ocupacion.setBounds(10, 406, 162, 14);
 		panel.add(lbl_Ocupacion);
+		
+		lbl_Nombre_Empleado.setHorizontalAlignment(lbl_Nombre_Empleado.CENTER);
+		lbl_Ocupacion.setHorizontalAlignment(lbl_Ocupacion.CENTER);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 140, 0));
@@ -108,22 +112,6 @@ public class GUI_ComenzarTrabajo2 extends javax.swing.JFrame{
 		btnVolver.setFont(new Font("SansSerif", Font.BOLD, 12));
 		btnVolver.setBounds(10, 381, 134, 46);
 		panel_1.add(btnVolver);
-		
-		dm = new DefaultTableModel();
-		String[]columns = {"Número Incidencia", "Problema", "Tiempo Estimado", "Piezas", "Teléfono"};
-		for ( int i=0; i<columns.length;i++){
-            dm.addColumn(columns[i]);
-        }
-		Object[]data = new Object[5];
-		for (int i = 0; i < clienteDao.recibirDatos().size();i++) {
-			Object[] linea = clienteDao.recibirDatos().get(i).toString().split(";");
-			data[0] = linea[0];
-			data[1] = linea[1];
-			data[2] = linea[2];
-			data[3] = linea[3];
-			data[4] = linea[4];
-			dm.addRow(data);
-		}
 		
 		JButton btnTerminado = new JButton("Terminar");
 		btnTerminado.addActionListener(new ActionListener() {
@@ -175,6 +163,11 @@ public class GUI_ComenzarTrabajo2 extends javax.swing.JFrame{
 	}
 	
 	public void llamar() {
-		
+		int boton = JOptionPane.showConfirmDialog(null, "¿Desea llamar al cliente?", "Llamar", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		if(boton == JOptionPane.YES_OPTION) {			
+			JOptionPane.showMessageDialog(null, "Llamando...");
+		}
+		if(boton == JOptionPane.NO_OPTION) {
+		}
 	}
 }

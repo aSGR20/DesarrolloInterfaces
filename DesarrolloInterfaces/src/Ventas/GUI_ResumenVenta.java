@@ -70,14 +70,17 @@ public class GUI_ResumenVenta extends javax.swing.JFrame{
 		DAO_Usuario usuarioDao = new DAO_Usuario();
 		lbl_Nombre_Empleado.setText(usuarioDao.getName());
 		lbl_Nombre_Empleado.setFont(new Font("SansSerif", Font.BOLD, 16));
-		lbl_Nombre_Empleado.setBounds(26, 126, 122, 14);
+		lbl_Nombre_Empleado.setBounds(10, 126, 162, 14);
 		panel.add(lbl_Nombre_Empleado);
 		
 		JLabel lbl_Ocupacion = new JLabel("OCUPACION");
 		lbl_Ocupacion.setText(usuarioDao.getProfesion());
 		lbl_Ocupacion.setFont(new Font("SansSerif", Font.BOLD, 18));
-		lbl_Ocupacion.setBounds(52, 406, 69, 14);
+		lbl_Ocupacion.setBounds(10, 406, 162, 14);
 		panel.add(lbl_Ocupacion);
+		
+		lbl_Nombre_Empleado.setHorizontalAlignment(lbl_Nombre_Empleado.CENTER);
+		lbl_Ocupacion.setHorizontalAlignment(lbl_Ocupacion.CENTER);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 140, 0));
@@ -128,12 +131,12 @@ public class GUI_ResumenVenta extends javax.swing.JFrame{
 		
 		JLabel lbl_Apellidos = new JLabel("Apellidos");
 		lbl_Apellidos.setFont(new Font("SansSerif", Font.BOLD, 14));
-		lbl_Apellidos.setBounds(10, 215, 78, 14);
+		lbl_Apellidos.setBounds(10, 209, 78, 14);
 		panel_1.add(lbl_Apellidos);
 		
 		JLabel lblapellidos = new JLabel("insert_text");
 		lblapellidos.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		lblapellidos.setBounds(69, 233, 88, 14);
+		lblapellidos.setBounds(69, 227, 88, 14);
 		panel_1.add(lblapellidos);
 		
 		JLabel lbltelefono = new JLabel("insert_text");
@@ -150,6 +153,51 @@ public class GUI_ResumenVenta extends javax.swing.JFrame{
 		lbl_Cliente.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 18));
 		lbl_Cliente.setBounds(35, 24, 66, 24);
 		panel_1.add(lbl_Cliente);
+		
+		JLabel lblprecio = new JLabel("insert_text");
+		lblprecio.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		lblprecio.setBounds(353, 289, 88, 14);
+		panel_1.add(lblprecio);
+		
+		JLabel lbl_Telefono_1 = new JLabel("Precio");
+		lbl_Telefono_1.setFont(new Font("SansSerif", Font.BOLD, 14));
+		lbl_Telefono_1.setBounds(319, 271, 78, 14);
+		panel_1.add(lbl_Telefono_1);
+		
+		JLabel lbltipo = new JLabel("insert_text");
+		lbltipo.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		lbltipo.setBounds(353, 227, 88, 14);
+		panel_1.add(lbltipo);
+		
+		JLabel lbl_Apellidos_1 = new JLabel("Tipo");
+		lbl_Apellidos_1.setFont(new Font("SansSerif", Font.BOLD, 14));
+		lbl_Apellidos_1.setBounds(318, 209, 78, 14);
+		panel_1.add(lbl_Apellidos_1);
+		
+		JLabel lblmodelo = new JLabel("insert_text");
+		lblmodelo.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		lblmodelo.setBounds(371, 165, 88, 14);
+		panel_1.add(lblmodelo);
+		
+		JLabel lbl_Nombre_1 = new JLabel("Modelo");
+		lbl_Nombre_1.setFont(new Font("SansSerif", Font.BOLD, 14));
+		lbl_Nombre_1.setBounds(318, 149, 55, 14);
+		panel_1.add(lbl_Nombre_1);
+		
+		JLabel lblmarca = new JLabel("insert_text");
+		lblmarca.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		lblmarca.setBounds(343, 97, 88, 14);
+		panel_1.add(lblmarca);
+		
+		JLabel lbl_DNI_1 = new JLabel("Marca");
+		lbl_DNI_1.setFont(new Font("SansSerif", Font.BOLD, 14));
+		lbl_DNI_1.setBounds(318, 82, 55, 14);
+		panel_1.add(lbl_DNI_1);
+		
+		JLabel lbl_Cliente_1 = new JLabel("Cliente");
+		lbl_Cliente_1.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 18));
+		lbl_Cliente_1.setBounds(353, 24, 66, 24);
+		panel_1.add(lbl_Cliente_1);
 	}
 
 	public void volver() {

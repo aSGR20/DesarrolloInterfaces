@@ -75,14 +75,17 @@ public class GUI_ComenzarTrabajo1 extends javax.swing.JFrame{
 		DAO_Usuario usuarioDao = new DAO_Usuario();
 		lbl_Nombre_Empleado.setText(usuarioDao.getName());
 		lbl_Nombre_Empleado.setFont(new Font("SansSerif", Font.BOLD, 16));
-		lbl_Nombre_Empleado.setBounds(26, 126, 122, 14);
+		lbl_Nombre_Empleado.setBounds(10, 126, 162, 14);
 		panel.add(lbl_Nombre_Empleado);
 		
 		JLabel lbl_Ocupacion = new JLabel("OCUPACION");
 		lbl_Ocupacion.setText(usuarioDao.getProfesion());
 		lbl_Ocupacion.setFont(new Font("SansSerif", Font.BOLD, 18));
-		lbl_Ocupacion.setBounds(52, 406, 122, 14);
+		lbl_Ocupacion.setBounds(10, 406, 162, 14);
 		panel.add(lbl_Ocupacion);
+		
+		lbl_Nombre_Empleado.setHorizontalAlignment(lbl_Nombre_Empleado.CENTER);
+		lbl_Ocupacion.setHorizontalAlignment(lbl_Ocupacion.CENTER);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 140, 0));
@@ -117,6 +120,7 @@ public class GUI_ComenzarTrabajo1 extends javax.swing.JFrame{
 		for ( int i=0; i<columns.length;i++){
             dm.addColumn(columns[i]);
         }
+		//CARGAR BASE DE DATOS DE INCIDENCIAS
 		Object[]data = new Object[5];
 		for (int i = 0; i < clienteDao.recibirDatos().size();i++) {
 			Object[] linea = clienteDao.recibirDatos().get(i).toString().split(";");
@@ -153,7 +157,7 @@ public class GUI_ComenzarTrabajo1 extends javax.swing.JFrame{
 		try {
 			int selectedRow = table.getSelectedRow();
 			NumIncidencia= dm.getValueAt(selectedRow, 0).toString();
-			GUI_ComenzarTrabajo2 siguiente = new GUI_ComenzarTrabajo2(this, menu);
+			GUI_ComenzarTrabajo2 siguiente = new GUI_ComenzarTrabajo2(this, menu, NumIncidencia);
 			this.setVisible(false);
 		}catch(ArrayIndexOutOfBoundsException aiooe) {
 			JOptionPane.showMessageDialog(null, "Señala la reparación ha realizar");

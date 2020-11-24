@@ -26,6 +26,7 @@ import java.awt.event.ActionEvent;
 
 public class GUI_Mecanicos extends javax.swing.JFrame{
 
+	private String profesion;
 	private String nombre;
 	private JFrame frame;
 
@@ -50,6 +51,12 @@ public class GUI_Mecanicos extends javax.swing.JFrame{
 	 * @wbp.parser.constructor
 	 */
 	public GUI_Mecanicos(GUI_Login login) {
+		initialize();
+		setLocationRelativeTo(null);
+		setVisible(true);
+	}
+	
+	public GUI_Mecanicos(GUI_AnyadirTrabajos3 anyadir) {
 		initialize();
 		setLocationRelativeTo(null);
 		setVisible(true);
@@ -85,14 +92,18 @@ public class GUI_Mecanicos extends javax.swing.JFrame{
 		DAO_Usuario usuarioDao = new DAO_Usuario();
 		lbl_Nombre_Empleado.setText(usuarioDao.getName());
 		lbl_Nombre_Empleado.setFont(new Font("SansSerif", Font.BOLD, 16));
-		lbl_Nombre_Empleado.setBounds(26, 126, 122, 14);
+		lbl_Nombre_Empleado.setBounds(10, 126, 162, 14);
 		panel.add(lbl_Nombre_Empleado);
 		
 		JLabel lbl_Ocupacion = new JLabel("OCUPACION");
 		lbl_Ocupacion.setText(usuarioDao.getProfesion());
 		lbl_Ocupacion.setFont(new Font("SansSerif", Font.BOLD, 18));
-		lbl_Ocupacion.setBounds(52, 406, 122, 14);
+		lbl_Ocupacion.setBounds(10, 406, 162, 14);
 		panel.add(lbl_Ocupacion);
+		
+		profesion = usuarioDao.getProfesion();
+		lbl_Nombre_Empleado.setHorizontalAlignment(lbl_Nombre_Empleado.CENTER);
+		lbl_Ocupacion.setHorizontalAlignment(lbl_Ocupacion.CENTER);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 140, 0));
@@ -136,8 +147,7 @@ public class GUI_Mecanicos extends javax.swing.JFrame{
 		btnVer.setBounds(296, 107, 124, 46);
 		panel_1.add(btnVer);
 		
-		
-		//if(usuarioDao.getProfesion().equals("mecánico_jefe")) {
+		if(usuarioDao.getProfesion().equals("Mecánico_Jefe")) {
 			JButton btnAnyadir = new JButton("A\u00F1adir");
 			btnAnyadir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -152,7 +162,7 @@ public class GUI_Mecanicos extends javax.swing.JFrame{
 			lbl_Anyadir.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 14));
 			lbl_Anyadir.setBounds(154, 215, 147, 14);
 			panel_1.add(lbl_Anyadir);
-		//}
+		}
 	}
 	
 	public void comenzarTrabajos() {
@@ -166,7 +176,7 @@ public class GUI_Mecanicos extends javax.swing.JFrame{
 	}
 	
 	public void anyadirTrabajo() {
-		GUI_AnyadirTrabajos1 anyadir = new GUI_AnyadirTrabajos1(this);
+		GUI_AnyadirTrabajos1 anyadir = new GUI_AnyadirTrabajos1(this, profesion);
 		this.setVisible(false);
 	}
 }

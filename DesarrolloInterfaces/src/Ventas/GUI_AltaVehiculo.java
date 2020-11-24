@@ -30,6 +30,7 @@ public class GUI_AltaVehiculo extends javax.swing.JFrame{
 
 	private GUI_Ventas menu;
 	public GUI_AnyadirTrabajos2 menuAnyadir;
+	private String profesion;
 	private JFrame frame;
 	private JTextField text_NumSerie;
 	private JTextField text_Modelo;
@@ -49,10 +50,11 @@ public class GUI_AltaVehiculo extends javax.swing.JFrame{
 		setVisible(true);
 	}
 	
-	public GUI_AltaVehiculo(GUI_AnyadirTrabajos2 menuAnyadir) {
+	public GUI_AltaVehiculo(GUI_AnyadirTrabajos2 menuAnyadir, String profesion) {
 		initialize();
 		setLocationRelativeTo(null);
 		this.menuAnyadir = menuAnyadir;
+		this.profesion = profesion;
 		setVisible(true);
 	}
 
@@ -82,14 +84,17 @@ public class GUI_AltaVehiculo extends javax.swing.JFrame{
 		DAO_Usuario usuarioDao = new DAO_Usuario();
 		lbl_Nombre_Empleado.setText(usuarioDao.getName());
 		lbl_Nombre_Empleado.setFont(new Font("SansSerif", Font.BOLD, 16));
-		lbl_Nombre_Empleado.setBounds(26, 126, 122, 14);
+		lbl_Nombre_Empleado.setBounds(10, 126, 162, 14);
 		panel.add(lbl_Nombre_Empleado);
 		
 		JLabel lbl_Ocupacion = new JLabel("OCUPACION");
 		lbl_Ocupacion.setText(usuarioDao.getProfesion());
 		lbl_Ocupacion.setFont(new Font("SansSerif", Font.BOLD, 18));
-		lbl_Ocupacion.setBounds(52, 406, 69, 14);
+		lbl_Ocupacion.setBounds(10, 406, 162, 14);
 		panel.add(lbl_Ocupacion);
+		
+		lbl_Nombre_Empleado.setHorizontalAlignment(lbl_Nombre_Empleado.CENTER);
+		lbl_Ocupacion.setHorizontalAlignment(lbl_Ocupacion.CENTER);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 140, 0));
@@ -201,10 +206,10 @@ public class GUI_AltaVehiculo extends javax.swing.JFrame{
 		DAO_Usuario usuarioDao = new DAO_Usuario();
 		this.setVisible(false);
 		this.dispose();
-		if(usuarioDao.getProfesion().equals("ventas")) {
-			menu.setVisible(true);
-		}else if (usuarioDao.getProfesion().equals("mecánico_jefe")) {
+		if(profesion.equals("Mecánico_Jefe")) {
 			menuAnyadir.setVisible(true);
+		}else{
+			menu.setVisible(true);
 		}
 	}
 	
@@ -244,10 +249,10 @@ public class GUI_AltaVehiculo extends javax.swing.JFrame{
 			vehiculoDao.agregarDatos(datos);
 			this.setVisible(false);
 			this.dispose();
-			if(usuarioDao.getProfesion().equals("ventas")) {
-				menu.setVisible(true);
-			}else if (usuarioDao.getProfesion().equals("mecánico_jefe")) {
+			if(profesion.equals("Mecánico_Jefe")) {
 				menuAnyadir.setVisible(true);
+			}else{
+				menu.setVisible(true);
 			}
 		}
 		}catch(NumberFormatException nfe) {

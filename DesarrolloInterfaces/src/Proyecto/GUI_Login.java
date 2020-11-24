@@ -148,17 +148,13 @@ public class GUI_Login extends javax.swing.JFrame{
 				GUI_Ventas interfazVentas = new GUI_Ventas(this);
 				this.setVisible(false);
 			}else
-				if(comprobacion.profesion(usuario).equals("mecánico")) {
+				if(comprobacion.profesion(usuario).equals("mecánico")||comprobacion.profesion(usuario).equals("mecánico_jefe")) {
 					GUI_Mecanicos interfazMecanicos = new GUI_Mecanicos(this);
 					this.setVisible(false);
 				}else
-					if(comprobacion.profesion(usuario).equals("mecánico_jefe")) {
-						//GUI_MecanicosJefe interfazMecanicos = new GUI_MecanicosJefe(this);
-						this.setVisible(false);
-					}else
-			if(comprobacion.profesion(usuario).equals("jefe")) {
-				JOptionPane.showMessageDialog(null, "EN CONSTRUCCIÓN");
-			}
+					if(comprobacion.profesion(usuario).equals("jefe")) {
+						JOptionPane.showMessageDialog(null, "EN CONSTRUCCIÓN");
+					}
 		}else {
 			JOptionPane.showMessageDialog(null, "Usuario y/o Contraseña incorrectos");
 		}

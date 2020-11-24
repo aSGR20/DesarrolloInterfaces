@@ -77,14 +77,17 @@ public class GUI_VerTrabajos extends javax.swing.JFrame{
 		DAO_Usuario usuarioDao = new DAO_Usuario();
 		lbl_Nombre_Empleado.setText(usuarioDao.getName());
 		lbl_Nombre_Empleado.setFont(new Font("SansSerif", Font.BOLD, 16));
-		lbl_Nombre_Empleado.setBounds(26, 126, 122, 14);
+		lbl_Nombre_Empleado.setBounds(10, 126, 162, 14);
 		panel.add(lbl_Nombre_Empleado);
 		
 		JLabel lbl_Ocupacion = new JLabel("OCUPACION");
 		lbl_Ocupacion.setText(usuarioDao.getProfesion());
 		lbl_Ocupacion.setFont(new Font("SansSerif", Font.BOLD, 18));
-		lbl_Ocupacion.setBounds(52, 406, 122, 14);
+		lbl_Ocupacion.setBounds(10, 406, 162, 14);
 		panel.add(lbl_Ocupacion);
+		
+		lbl_Nombre_Empleado.setHorizontalAlignment(lbl_Nombre_Empleado.CENTER);
+		lbl_Ocupacion.setHorizontalAlignment(lbl_Ocupacion.CENTER);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 140, 0));
@@ -105,12 +108,6 @@ public class GUI_VerTrabajos extends javax.swing.JFrame{
 		
 		dm = new DefaultTableModel();
 		table = new JTable(dm);
-		/*table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				tableMouseClicked(e);
-			}
-		});*/
 		table.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		JScrollPane scrollPane= new  JScrollPane(table);
 		scrollPane.setLocation(10, 57);
@@ -119,7 +116,7 @@ public class GUI_VerTrabajos extends javax.swing.JFrame{
 		for ( int i=0; i<columns.length;i++){
             dm.addColumn(columns[i]);
         }
-		//Recibir los datos las reparaciones
+		//CARGAR LOS DATOS DE LA BASE DE DATOS DE REPARACIONES
 		Object[]data = new Object[5];
 		for (int i = 0; i < clienteDao.recibirDatos().size();i++) {
 			Object[] linea = clienteDao.recibirDatos().get(i).toString().split(";");
@@ -141,9 +138,4 @@ public class GUI_VerTrabajos extends javax.swing.JFrame{
 		this.dispose();
 		menu.setVisible(true);
 	}
-	
-	/*private void tableMouseClicked(java.awt.event.MouseEvent evt) {  
-		int selectedRow = table.getSelectedRow();
-		NumIncidencia = dm.getValueAt(selectedRow, 0).toString();
-    }*/
 }
