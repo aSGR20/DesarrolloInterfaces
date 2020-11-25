@@ -17,7 +17,7 @@ public class DAO_Vehiculo extends DAO_Abstract{
             rs = stm.executeQuery("select * from desarrollodeinterfaces.vehículo");
             while(rs.next()){
                 datosVehículos.add(new Vehiculo(rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7)));
+                        rs.getString(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10)));
             }
         } catch (SQLException ex) {
             System.out.println("Oh no!");
@@ -50,10 +50,14 @@ public class DAO_Vehiculo extends DAO_Abstract{
     
     public void agregarDatos(Object[]datos) {
         try {
-        	if(datos.length==6) {
-        		stm.executeUpdate("INSERT INTO `desarrollodeinterfaces`.`vehículo` (`Num_Serial`, `Modelo`, `Marca`, `Tipo`, `Precio`, `Fecha_Entrada`) VALUES ("+datos[0]+", '"+datos[1]+"', '"+datos[2]+"', '"+datos[3]+"', "+datos[4]+", '"+datos[5]+"');");
-        	}else if (datos.length==7) {
-        		stm.executeUpdate("INSERT INTO `desarrollodeinterfaces`.`vehículo` (`Num_Serial`, `Modelo`, `Marca`, `Tipo`, `Precio`, `Fecha_Entrada`, `Inf_Adicional`) VALUES ("+datos[0]+", '"+datos[1]+"', '"+datos[2]+"', '"+datos[3]+"', "+datos[4]+", '"+datos[5]+"', '"+datos[6]+"');");
+        	if(datos.length==9) {
+        		stm.executeUpdate("INSERT INTO `desarrollodeinterfaces`.`vehículo` (`Num_Serial`, `Modelo`, `Marca`, `Tipo`, `Precio`, `Fecha_Entrada`, `Anyo`,"
+        				+ " `Kilometros`, `Combustible`) VALUES ("+datos[0]+", '"+datos[1]+"', '"+datos[2]+"', '"+datos[3]+"', "+datos[4]+", '"+datos[5]+"',"
+        						+ " '"+datos[6]+"', '"+datos[7]+"', '"+datos[8]+"');");
+        	}else if (datos.length==10) {
+        		stm.executeUpdate("INSERT INTO `desarrollodeinterfaces`.`vehículo` (`Num_Serial`, `Modelo`, `Marca`, `Tipo`, `Precio`, `Fecha_Entrada`, `Anyo`,"
+        				+ " `Kilometros`, `Combustible`, `Inf_Adicional`) VALUES ("+datos[0]+", '"+datos[1]+"', '"+datos[2]+"', '"+datos[3]+"', "+datos[4]+","
+        						+ " '"+datos[5]+"', '"+datos[6]+"', '"+datos[7]+"', '"+datos[8]+"', '"+datos[9]+"');");
         	}
         } catch (SQLException ex) {
             System.out.println("Oh no!");
@@ -65,8 +69,8 @@ public class DAO_Vehiculo extends DAO_Abstract{
         try {
             rs = stm.executeQuery("SELECT * FROM desarrollodeinterfaces.vehículo WHERE `Modelo` = '"+datos[0]+"' `Marca` = '"+datos[1]+"', `Tipo` = '"+datos[2]+"';");
             while(rs.next()){
-                datosVehículos.add(new Vehiculo(rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7)));
+            	datosVehículos.add(new Vehiculo(rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10)));
             }
         } catch (SQLException ex) {
             System.out.println("Oh no!");
@@ -79,8 +83,8 @@ public class DAO_Vehiculo extends DAO_Abstract{
         try {
             rs = stm.executeQuery("SELECT * FROM desarrollodeinterfaces.vehículo WHERE `Modelo` = '"+modelo+"';");
             while(rs.next()){
-                datosVehículos.add(new Vehiculo(rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7)));
+            	datosVehículos.add(new Vehiculo(rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10)));
             }
         } catch (SQLException ex) {
             System.out.println("Oh no!");
@@ -94,7 +98,7 @@ public class DAO_Vehiculo extends DAO_Abstract{
             rs = stm.executeQuery("SELECT * FROM desarrollodeinterfaces.vehículo WHERE `Marca` = '"+marca+"';");
             while(rs.next()){
                 datosVehículos.add(new Vehiculo(rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7)));
+                        rs.getString(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10)));
             }
         } catch (SQLException ex) {
             System.out.println("Oh no!");
@@ -107,8 +111,64 @@ public class DAO_Vehiculo extends DAO_Abstract{
         try {
             rs = stm.executeQuery("SELECT * FROM desarrollodeinterfaces.vehículo WHERE `Tipo` = '"+tipo+"';");
             while(rs.next()){
-                datosVehículos.add(new Vehiculo(rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7)));
+            	datosVehículos.add(new Vehiculo(rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10)));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Oh no!");
+        }
+        return datosVehículos;
+    }
+    
+    public ArrayList<Object> buscarVehiculosPrecio(int precio) {
+        ArrayList<Object> datosVehículos= new ArrayList<>();
+        try {
+            rs = stm.executeQuery("SELECT * FROM desarrollodeinterfaces.vehículo WHERE `Precio` <= "+precio+";");
+            while(rs.next()){
+            	datosVehículos.add(new Vehiculo(rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10)));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Oh no!");
+        }
+        return datosVehículos;
+    }
+    
+    public ArrayList<Object> buscarVehiculosAnyo(int anyo) {
+        ArrayList<Object> datosVehículos= new ArrayList<>();
+        try {
+            rs = stm.executeQuery("SELECT * FROM desarrollodeinterfaces.vehículo WHERE `Anyo` = "+anyo+";");
+            while(rs.next()){
+            	datosVehículos.add(new Vehiculo(rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10)));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Oh no!");
+        }
+        return datosVehículos;
+    }
+    
+    public ArrayList<Object> buscarVehiculosKilometros(int kilometros) {
+        ArrayList<Object> datosVehículos= new ArrayList<>();
+        try {
+            rs = stm.executeQuery("SELECT * FROM desarrollodeinterfaces.vehículo WHERE `Kilometros` = "+kilometros+";");
+            while(rs.next()){
+            	datosVehículos.add(new Vehiculo(rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10)));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Oh no!");
+        }
+        return datosVehículos;
+    }
+    
+    public ArrayList<Object> buscarVehiculosCombustible(String combustible) {
+        ArrayList<Object> datosVehículos= new ArrayList<>();
+        try {
+            rs = stm.executeQuery("SELECT * FROM desarrollodeinterfaces.vehículo WHERE `Combustible` = '"+combustible+"';");
+            while(rs.next()){
+            	datosVehículos.add(new Vehiculo(rs.getInt(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10)));
             }
         } catch (SQLException ex) {
             System.out.println("Oh no!");
@@ -132,7 +192,7 @@ public class DAO_Vehiculo extends DAO_Abstract{
     
     public void modificarDatos(int num_serie, Object[]data) {
         try {
-        	stm.executeUpdate("UPDATE `vehículo` SET `Marca` = '"+data[0]+"', `Modelo` = '"+data[1]+"', `Precio` = '"+data[2]+"' WHERE `vehículo`.`Num_Serial` = '"+num_serie+"'");
+        	stm.executeUpdate("UPDATE `vehículo` SET `Marca` = '"+data[0]+"', `Modelo` = '"+data[1]+"', `Precio` = "+data[2]+", `Anyo` = "+data[3]+", `Kilometros` = "+data[4]+", `Combustible` = '"+data[5]+"' WHERE `vehículo`.`Num_Serial` = '"+num_serie+"'");
         } catch (SQLException ex) {
             System.out.println("Oh no!");
         }

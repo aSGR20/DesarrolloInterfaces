@@ -28,6 +28,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
 
 public class GUI_VerVehiculos extends javax.swing.JFrame{
 
@@ -39,6 +40,9 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 	private JTextField text_Marca;
 	private JTextField text_Modelo;
 	private JTextField text_Precio;
+	private JTextField textAnyo;
+	private JTextField textKilometros;
+	private JComboBox comboCombustible;
 
 	/**
 	 * Create the application.
@@ -57,7 +61,7 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 		frame = new JFrame();
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setTitle("Lista de Vehículos");
-		setBounds(100, 100, 667, 482);
+		setBounds(100, 100, 856, 482);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		DAO_Vehiculo vehiculoDao = new DAO_Vehiculo();
@@ -91,7 +95,7 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 140, 0));
-		panel_1.setBounds(175, 0, 476, 443);
+		panel_1.setBounds(175, 0, 665, 443);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -99,18 +103,17 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 		btnBuscar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Object[]datos = new Object[3];
+				DAO_Vehiculo vehiculosDao = new DAO_Vehiculo();
+				Object[]data = new Object[9];
 				if((text_Modelo.getText().equals(""))&&(text_Marca.getText().equals(""))&&(text_Precio.getText().equals(""))) {
 					vehiculoDao.recibirDatos();
-				}
-				if(!text_Precio.getText().equals("")) {
-					DAO_Vehiculo vehiculosDao = new DAO_Vehiculo();
-					String tipo = text_Precio.getText();
-					vehiculosDao.buscarVehiculosTipos(tipo);
+				}else
+				if(!textAnyo.getText().equals("")) {
+					int anyo = Integer.parseInt(textAnyo.getText());
+					vehiculosDao.buscarVehiculosAnyo(anyo);
 					dm.setRowCount(0);
-					for(int i = 0; i < vehiculosDao.buscarVehiculosTipos(tipo).size();i++) {
-						Object[]linea = vehiculosDao.buscarVehiculosTipos(tipo).toString().split(";");
-						Object[]data = new Object[7];
+					for(int i = 0; i < vehiculosDao.buscarVehiculosAnyo(anyo).size();i++) {
+						Object[]linea = vehiculosDao.buscarVehiculosAnyo(anyo).toString().split(";");
 						data[0] = linea[0];
 						data[1] = linea[1];
 						data[2] = linea[2];
@@ -118,17 +121,53 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 						data[4] = linea[4];
 						data[5] = linea[5];
 						data[6] = linea[6];
+						data[7] = linea[7];
+						data[8] = linea[8];
 						dm.addRow(data);
 					}
-				}
+				}else
+				if(!textKilometros.getText().equals("")) {
+					int kilometros = Integer.parseInt(textKilometros.getText());
+					vehiculosDao.buscarVehiculosKilometros(kilometros);
+					dm.setRowCount(0);
+					for(int i = 0; i < vehiculosDao.buscarVehiculosKilometros(kilometros).size();i++) {
+						Object[]linea = vehiculosDao.buscarVehiculosKilometros(kilometros).toString().split(";");
+						data[0] = linea[0];
+						data[1] = linea[1];
+						data[2] = linea[2];
+						data[3] = linea[3];
+						data[4] = linea[4];
+						data[5] = linea[5];
+						data[6] = linea[6];
+						data[7] = linea[7];
+						data[8] = linea[8];
+						dm.addRow(data);
+					}
+				}else
+				if(!text_Precio.getText().equals("")) {
+					int precio = Integer.parseInt(text_Precio.getText());
+					vehiculosDao.buscarVehiculosPrecio(precio);
+					dm.setRowCount(0);
+					for(int i = 0; i < vehiculosDao.buscarVehiculosPrecio(precio).size();i++) {
+						Object[]linea = vehiculosDao.buscarVehiculosPrecio(precio).toString().split(";");
+						data[0] = linea[0];
+						data[1] = linea[1];
+						data[2] = linea[2];
+						data[3] = linea[3];
+						data[4] = linea[4];
+						data[5] = linea[5];
+						data[6] = linea[6];
+						data[7] = linea[7];
+						data[8] = linea[8];
+						dm.addRow(data);
+					}
+				}else
 				if(!text_Modelo.getText().equals("")) {
-					DAO_Vehiculo vehiculosDao = new DAO_Vehiculo();
 					String modelo = text_Modelo.getText();
 					vehiculosDao.buscarVehiculosModelo(modelo);
 					dm.setRowCount(0);
 					for(int i = 0; i < vehiculosDao.buscarVehiculosModelo(modelo).size();i++) {
 						Object[]linea = vehiculosDao.buscarVehiculosModelo(modelo).toString().split(";");
-						Object[]data = new Object[7];
 						data[0] = linea[0];
 						data[1] = linea[1];
 						data[2] = linea[2];
@@ -136,17 +175,17 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 						data[4] = linea[4];
 						data[5] = linea[5];
 						data[6] = linea[6];
+						data[7] = linea[7];
+						data[8] = linea[8];
 						dm.addRow(data);
 					}
-				}
+				}else
 				if(!text_Marca.getText().equals("")) {
-					DAO_Vehiculo vehiculosDao = new DAO_Vehiculo();
 					String marca = text_Marca.getText();
 					vehiculosDao.buscarVehiculosMarca(marca);
 					dm.setRowCount(0);
 					for(int i = 0; i < vehiculosDao.buscarVehiculosMarca(marca).size();i++) {
 						Object[]linea = vehiculosDao.buscarVehiculosMarca(marca).toString().split(";");
-						Object[]data = new Object[7];
 						data[0] = linea[0];
 						data[1] = linea[1];
 						data[2] = linea[2];
@@ -154,12 +193,32 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 						data[4] = linea[4];
 						data[5] = linea[5];
 						data[6] = linea[6];
+						data[7] = linea[7];
+						data[8] = linea[8];
+						dm.addRow(data);
+					}
+				}else
+				if(!comboCombustible.getSelectedItem().equals("")) {
+					String combustible = comboCombustible.getSelectedItem().toString();
+					vehiculosDao.buscarVehiculosCombustible(combustible);
+					dm.setRowCount(0);
+					for(int i = 0; i < vehiculosDao.buscarVehiculosCombustible(combustible).size();i++) {
+						Object[]linea = vehiculosDao.buscarVehiculosCombustible(combustible).toString().split(";");
+						data[0] = linea[0];
+						data[1] = linea[1];
+						data[2] = linea[2];
+						data[3] = linea[3];
+						data[4] = linea[4];
+						data[5] = linea[5];
+						data[6] = linea[6];
+						data[7] = linea[7];
+						data[8] = linea[8];
 						dm.addRow(data);
 					}
 				}
 			}
 		});
-		btnBuscar.setBounds(336, 50, 89, 23);
+		btnBuscar.setBounds(421, 378, 89, 23);
 		panel_1.add(btnBuscar);
 		
 		JButton btnReset = new JButton("Resetear");
@@ -168,9 +227,12 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 				text_Precio.setText("");
 				text_Modelo.setText("");
 				text_Marca.setText("");
+				textAnyo.setText("");
+				textKilometros.setText("");
+				comboCombustible.setSelectedIndex(0);
 				dm.setRowCount(0);
 				vehiculoDao.recibirDatos();
-				Object[]data = new Object[6];
+				Object[]data = new Object[9];
 				for(int i = 0; i < vehiculoDao.recibirDatos().size();i++) {
 					Object[]linea = vehiculoDao.recibirDatos().get(i).toString().split(";");
 					data[0] = linea[0];
@@ -179,11 +241,14 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 					data[3] = linea[3];
 					data[4] = linea[4];
 					data[5] = linea[5];
+					data[6] = linea[6];
+					data[7] = linea[7];
+					data[8] = linea[8];
 					dm.addRow(data);
 				}
 			}
 		});
-		btnReset.setBounds(236, 50, 89, 23);
+		btnReset.setBounds(421, 401, 89, 23);
 		panel_1.add(btnReset);
 		
 		JButton btnVolver = new JButton("Volver");
@@ -211,12 +276,12 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 		});
 		JScrollPane scrollPane= new  JScrollPane(table);
 		scrollPane.setLocation(10, 104);
-		scrollPane.setSize(456, 256);
-		String[]columns = {"Número Serie", "Modelo", "Marca", "Tipo", "Precio", "Fecha Entrada"};
+		scrollPane.setSize(645, 256);
+		String[]columns = {"Número Serie", "Modelo", "Marca", "Tipo", "Precio", "Fecha Entrada", "Año", "Kilómetros", "Combustible"};
 		for ( int i=0; i<columns.length;i++){
             dm.addColumn(columns[i]);
         }
-		Object[]data = new Object[6];
+		Object[]data = new Object[9];
 		for (int i = 0; i < vehiculoDao.recibirDatos().size();i++) {
 			Object[] linea = vehiculoDao.recibirDatos().get(i).toString().split(";");
 			data[0] = linea[0];
@@ -225,6 +290,9 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 			data[3] = linea[3];
 			data[4] = linea[4];
 			data[5] = linea[5];
+			data[6] = linea[6];
+			data[7] = linea[7];
+			data[8] = linea[8];
 			dm.addRow(data);
 		}
 		table.setModel(dm);
@@ -245,12 +313,15 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 					data[3] = linea[3];
 					data[4] = linea[4];
 					data[5] = linea[5];
+					data[6] = linea[6];
+					data[7] = linea[7];
+					data[8] = linea[8];
 					dm.addRow(data);
 				}
 			}
 		});
 		btnModificar.setFont(new Font("SansSerif", Font.BOLD, 12));
-		btnModificar.setBounds(332, 378, 134, 46);
+		btnModificar.setBounds(521, 378, 134, 46);
 		panel_1.add(btnModificar);
 		
 		JLabel lbl_Marca = new JLabel("Marca");
@@ -282,6 +353,43 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 		lbl_Precio.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 12));
 		lbl_Precio.setBounds(234, 13, 43, 14);
 		panel_1.add(lbl_Precio);
+		
+		JLabel lbl_Anyo = new JLabel("A\u00F1o");
+		lbl_Anyo.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 12));
+		lbl_Anyo.setBounds(234, 52, 43, 14);
+		panel_1.add(lbl_Anyo);
+		
+		textAnyo = new JTextField();
+		textAnyo.setColumns(10);
+		textAnyo.setBounds(287, 50, 120, 20);
+		panel_1.add(textAnyo);
+		
+		JLabel lbl_Kilometros = new JLabel("Kilometros");
+		lbl_Kilometros.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 12));
+		lbl_Kilometros.setBounds(453, 13, 63, 14);
+		panel_1.add(lbl_Kilometros);
+		
+		textKilometros = new JTextField();
+		textKilometros.setColumns(10);
+		textKilometros.setBounds(535, 11, 120, 20);
+		panel_1.add(textKilometros);
+		
+		JLabel lbl_Combustible = new JLabel("Combustible");
+		lbl_Combustible.setFont(new Font("SansSerif", Font.BOLD | Font.ITALIC, 12));
+		lbl_Combustible.setBounds(453, 51, 72, 14);
+		panel_1.add(lbl_Combustible);
+		
+		String combustibles[] = {
+				"",
+				"Diésel",
+				"Gasolina",
+				"Híbrido",
+				"Eléctrico"
+		};
+		
+		comboCombustible = new JComboBox(combustibles);
+		comboCombustible.setBounds(535, 47, 120, 22);
+		panel_1.add(comboCombustible);
 	}
 
 	public void volver() {
@@ -292,23 +400,29 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 	
 	public void modificar() {
 		try {
-			Object[]datos = new Object[3];
+			int selectedRow = table.getSelectedRow();
+			Object[]datos = new Object[6];
 			datos[0] = text_Marca.getText();
 			datos[1] = text_Modelo.getText();
 			datos[2] = Integer.parseInt(text_Precio.getText());
-				DAO_Vehiculo vehiculoDao = new DAO_Vehiculo();
-				vehiculoDao.modificarDatos(Num_Serie, datos);
-				dm.addRow(datos);
+			datos[3] = Integer.parseInt(textAnyo.getText());
+			datos[4] = Integer.parseInt(textKilometros.getText());
+			datos[5] = comboCombustible.getSelectedItem();
+			DAO_Vehiculo vehiculoDao = new DAO_Vehiculo();
+			vehiculoDao.modificarDatos(Num_Serie, datos);
 		}catch(NumberFormatException nfe) {
-				JOptionPane.showMessageDialog(null, "Precio mal escrito");
-			}
+				JOptionPane.showMessageDialog(null, "Comprueba que los campos 'Precio', 'Año' y 'Kilometros' estén bien escritos");
+		}
 	}
 	
 	private void tableMouseClicked(java.awt.event.MouseEvent evt) {  
 		int selectedRow = table.getSelectedRow();
 		Num_Serie = Integer.parseInt(dm.getValueAt(selectedRow, 0).toString());
+		text_Modelo.setText(dm.getValueAt(selectedRow, 1).toString());
         text_Marca.setText(dm.getValueAt(selectedRow, 2).toString());
-        text_Modelo.setText(dm.getValueAt(selectedRow, 1).toString());
         text_Precio.setText(dm.getValueAt(selectedRow, 4).toString());
+        textAnyo.setText(dm.getValueAt(selectedRow, 6).toString());
+        textKilometros.setText(dm.getValueAt(selectedRow, 7).toString());
+        comboCombustible.setSelectedItem(dm.getValueAt(selectedRow, 8).toString());
     }
 }
