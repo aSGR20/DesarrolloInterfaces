@@ -105,15 +105,20 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 			public void mouseClicked(MouseEvent e) {
 				DAO_Vehiculo vehiculosDao = new DAO_Vehiculo();
 				Object[]data = new Object[9];
-				if((text_Modelo.getText().equals(""))&&(text_Marca.getText().equals(""))&&(text_Precio.getText().equals(""))) {
+				String anyo = textAnyo.getText();
+				String kilometros = textKilometros.getText();
+				String precio = text_Precio.getText();
+				String modelo = text_Modelo.getText();
+				String marca = text_Marca.getText();
+				String combustible = comboCombustible.getSelectedItem().toString();
+				if((text_Modelo.getText().equals(""))&&(text_Marca.getText().equals(""))&&(text_Precio.getText().equals(""))&&(textAnyo.getText().equals(""))&&(textKilometros.getText().equals(""))&&(comboCombustible.getSelectedItem().equals(""))) {
 					vehiculoDao.recibirDatos();
 				}else
 				if(!textAnyo.getText().equals("")) {
-					int anyo = Integer.parseInt(textAnyo.getText());
 					vehiculosDao.buscarVehiculosAnyo(anyo);
 					dm.setRowCount(0);
 					for(int i = 0; i < vehiculosDao.buscarVehiculosAnyo(anyo).size();i++) {
-						Object[]linea = vehiculosDao.buscarVehiculosAnyo(anyo).toString().split(";");
+						Object[]linea = vehiculosDao.buscarVehiculosAnyo(anyo).get(i).toString().split(";");
 						data[0] = linea[0];
 						data[1] = linea[1];
 						data[2] = linea[2];
@@ -127,11 +132,9 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 					}
 				}else
 				if(!textKilometros.getText().equals("")) {
-					int kilometros = Integer.parseInt(textKilometros.getText());
-					vehiculosDao.buscarVehiculosKilometros(kilometros);
 					dm.setRowCount(0);
 					for(int i = 0; i < vehiculosDao.buscarVehiculosKilometros(kilometros).size();i++) {
-						Object[]linea = vehiculosDao.buscarVehiculosKilometros(kilometros).toString().split(";");
+						Object[]linea = vehiculosDao.buscarVehiculosKilometros(kilometros).get(i).toString().split(";");
 						data[0] = linea[0];
 						data[1] = linea[1];
 						data[2] = linea[2];
@@ -145,11 +148,10 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 					}
 				}else
 				if(!text_Precio.getText().equals("")) {
-					int precio = Integer.parseInt(text_Precio.getText());
 					vehiculosDao.buscarVehiculosPrecio(precio);
 					dm.setRowCount(0);
 					for(int i = 0; i < vehiculosDao.buscarVehiculosPrecio(precio).size();i++) {
-						Object[]linea = vehiculosDao.buscarVehiculosPrecio(precio).toString().split(";");
+						Object[]linea = vehiculosDao.buscarVehiculosPrecio(precio).get(i).toString().split(";");
 						data[0] = linea[0];
 						data[1] = linea[1];
 						data[2] = linea[2];
@@ -163,11 +165,10 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 					}
 				}else
 				if(!text_Modelo.getText().equals("")) {
-					String modelo = text_Modelo.getText();
 					vehiculosDao.buscarVehiculosModelo(modelo);
 					dm.setRowCount(0);
 					for(int i = 0; i < vehiculosDao.buscarVehiculosModelo(modelo).size();i++) {
-						Object[]linea = vehiculosDao.buscarVehiculosModelo(modelo).toString().split(";");
+						Object[]linea = vehiculosDao.buscarVehiculosModelo(modelo).get(i).toString().split(";");
 						data[0] = linea[0];
 						data[1] = linea[1];
 						data[2] = linea[2];
@@ -181,11 +182,10 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 					}
 				}else
 				if(!text_Marca.getText().equals("")) {
-					String marca = text_Marca.getText();
 					vehiculosDao.buscarVehiculosMarca(marca);
 					dm.setRowCount(0);
 					for(int i = 0; i < vehiculosDao.buscarVehiculosMarca(marca).size();i++) {
-						Object[]linea = vehiculosDao.buscarVehiculosMarca(marca).toString().split(";");
+						Object[]linea = vehiculosDao.buscarVehiculosMarca(marca).get(i).toString().split(";");
 						data[0] = linea[0];
 						data[1] = linea[1];
 						data[2] = linea[2];
@@ -199,11 +199,10 @@ public class GUI_VerVehiculos extends javax.swing.JFrame{
 					}
 				}else
 				if(!comboCombustible.getSelectedItem().equals("")) {
-					String combustible = comboCombustible.getSelectedItem().toString();
 					vehiculosDao.buscarVehiculosCombustible(combustible);
 					dm.setRowCount(0);
 					for(int i = 0; i < vehiculosDao.buscarVehiculosCombustible(combustible).size();i++) {
-						Object[]linea = vehiculosDao.buscarVehiculosCombustible(combustible).toString().split(";");
+						Object[]linea = vehiculosDao.buscarVehiculosCombustible(combustible).get(i).toString().split(";");
 						data[0] = linea[0];
 						data[1] = linea[1];
 						data[2] = linea[2];

@@ -258,7 +258,7 @@ public class GUI_AltaVehiculo extends javax.swing.JFrame{
 		this.dispose();
 		if(profesion.equals("Mecánico_Jefe")) {
 			menuAnyadir.setVisible(true);
-		}else if(profesion.equals("ventas")){
+		}else{
 			menu.setVisible(true);
 		}
 	}
@@ -287,10 +287,10 @@ public class GUI_AltaVehiculo extends javax.swing.JFrame{
 			vehiculoDao.agregarDatos(datos);
 			this.setVisible(false);
 			this.dispose();
-			if(usuarioDao.getProfesion().equals("ventas")) {
-				menu.setVisible(true);
-			}else if (usuarioDao.getProfesion().equals("mecánico_jefe")) {
+			if(profesion.equals("Mecánico_Jefe")) {
 				menuAnyadir.setVisible(true);
+			}else{
+				menu.setVisible(true);
 			}
 		}else {
 			Object[]datos = new Object[10];

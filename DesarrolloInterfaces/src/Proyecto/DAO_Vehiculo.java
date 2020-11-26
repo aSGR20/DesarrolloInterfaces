@@ -120,7 +120,7 @@ public class DAO_Vehiculo extends DAO_Abstract{
         return datosVehículos;
     }
     
-    public ArrayList<Object> buscarVehiculosPrecio(int precio) {
+    public ArrayList<Object> buscarVehiculosPrecio(String precio) {
         ArrayList<Object> datosVehículos= new ArrayList<>();
         try {
             rs = stm.executeQuery("SELECT * FROM desarrollodeinterfaces.vehículo WHERE `Precio` <= "+precio+";");
@@ -134,13 +134,13 @@ public class DAO_Vehiculo extends DAO_Abstract{
         return datosVehículos;
     }
     
-    public ArrayList<Object> buscarVehiculosAnyo(int anyo) {
+    public ArrayList<Object> buscarVehiculosAnyo(String anyo) {
         ArrayList<Object> datosVehículos= new ArrayList<>();
         try {
-            rs = stm.executeQuery("SELECT * FROM desarrollodeinterfaces.vehículo WHERE `Anyo` = "+anyo+";");
+            rs = stm.executeQuery("SELECT * FROM desarrollodeinterfaces.vehículo WHERE `Anyo` = '"+anyo+"';");
             while(rs.next()){
-            	datosVehículos.add(new Vehiculo(rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10)));
+            	datosVehículos.add(rs.getInt(1)+ ";"+rs.getString(2)+ ";"+rs.getString(3)+ ";"+rs.getString(4)+ ";"+rs.getInt(5)+
+            			";"+rs.getString(6)+ ";"+rs.getInt(7)+ ";"+rs.getInt(8)+ ";"+rs.getString(9)+ ";"+rs.getString(10));
             }
         } catch (SQLException ex) {
             System.out.println("Oh no!");
@@ -148,13 +148,13 @@ public class DAO_Vehiculo extends DAO_Abstract{
         return datosVehículos;
     }
     
-    public ArrayList<Object> buscarVehiculosKilometros(int kilometros) {
+    public ArrayList<Object> buscarVehiculosKilometros(String kilometros) {
         ArrayList<Object> datosVehículos= new ArrayList<>();
         try {
             rs = stm.executeQuery("SELECT * FROM desarrollodeinterfaces.vehículo WHERE `Kilometros` = "+kilometros+";");
             while(rs.next()){
-            	datosVehículos.add(new Vehiculo(rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10)));
+            	datosVehículos.add(rs.getInt(1)+ ";"+rs.getString(2)+ ";"+rs.getString(3)+ ";"+rs.getString(4)+ ";"+rs.getInt(5)+
+            			";"+rs.getString(6)+ ";"+rs.getInt(7)+ ";"+rs.getInt(8)+ ";"+rs.getString(9)+ ";"+rs.getString(10));
             }
         } catch (SQLException ex) {
             System.out.println("Oh no!");
