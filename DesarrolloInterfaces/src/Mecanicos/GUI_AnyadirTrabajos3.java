@@ -22,6 +22,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import Proyecto.DAO_Cliente;
 import Proyecto.DAO_Usuario;
 
 import java.awt.event.ActionListener;
@@ -29,7 +30,7 @@ import java.awt.event.ActionEvent;
 
 public class GUI_AnyadirTrabajos3 extends javax.swing.JFrame{
 
-	private String problema, tiempoEstimado, piezas;
+	private String problema, tiempoEstimado, piezas, dni, numSerie;
 	private JFrame frame;
 	private GUI_AnyadirTrabajos2 menu;
 	private JTextField textProblema;
@@ -39,9 +40,11 @@ public class GUI_AnyadirTrabajos3 extends javax.swing.JFrame{
 	/**
 	 * Create the application.
 	 */
-	public GUI_AnyadirTrabajos3(GUI_AnyadirTrabajos2 menu) {
+	public GUI_AnyadirTrabajos3(GUI_AnyadirTrabajos2 menu, String dni, String numSerie) {
 		initialize();
 		this.menu = menu;
+		this.dni = dni;
+		this.numSerie = numSerie;
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
@@ -153,7 +156,8 @@ public class GUI_AnyadirTrabajos3 extends javax.swing.JFrame{
 		tiempoEstimado = textTiempo.getText();
 		piezas = textPiezas.getText();
 		//PASAR TODOS LOS DATOS SELECCIONADOS Y ESCRITOS A LA BASE DE DATOS
-		
+		DAO_Cliente clienteDao = new DAO_Cliente();
+		clienteDao.guardarTrabajo(dni, numSerie, problema, tiempoEstimado, piezas);
 		this.setVisible(false);
 		this.dispose();
 		GUI_Mecanicos menu = new GUI_Mecanicos(this);

@@ -230,7 +230,7 @@ public class GUI_AnyadirTrabajos1 extends javax.swing.JFrame{
 	}
 	
 	public void seleccionar() {
-		GUI_AnyadirTrabajos2 siguiente = new GUI_AnyadirTrabajos2(this, profesion);
+		GUI_AnyadirTrabajos2 siguiente = new GUI_AnyadirTrabajos2(this, profesion, DNI);
 		this.setVisible(false);
 		//GUARDAR LOS DATOS DE LA TABLA SELECCIONADO O HACERLO EN EL TABLEMOUSECLICKED
 	}

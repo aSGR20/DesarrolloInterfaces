@@ -121,8 +121,8 @@ public class GUI_VerTrabajos extends javax.swing.JFrame{
         }
 		//CARGAR LOS DATOS DE LA BASE DE DATOS DE REPARACIONES
 		Object[]data = new Object[5];
-		for (int i = 0; i < clienteDao.recibirDatos().size();i++) {
-			Object[] linea = clienteDao.recibirDatos().get(i).toString().split(";");
+		for (int i = 0; i < clienteDao.recibirDatosTrabajos().size();i++) {
+			Object[] linea = clienteDao.recibirDatosTrabajos().get(i).toString().split(";");
 			data[0] = linea[0];
 			data[1] = linea[1];
 			data[2] = linea[2];

@@ -126,8 +126,8 @@ public class GUI_ComenzarTrabajo1 extends javax.swing.JFrame{
         }
 		//CARGAR BASE DE DATOS DE INCIDENCIAS
 		Object[]data = new Object[5];
-		for (int i = 0; i < clienteDao.recibirDatos().size();i++) {
-			Object[] linea = clienteDao.recibirDatos().get(i).toString().split(";");
+		for (int i = 0; i < clienteDao.recibirDatosTrabajos().size();i++) {
+			Object[] linea = clienteDao.recibirDatosTrabajos().get(i).toString().split(";");
 			data[0] = linea[0];
 			data[1] = linea[1];
 			data[2] = linea[2];

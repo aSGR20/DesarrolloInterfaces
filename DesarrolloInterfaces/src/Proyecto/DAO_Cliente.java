@@ -25,6 +25,51 @@ public class DAO_Cliente extends DAO_Abstract{
         }
         return datosClientes;
     }
+    
+    public ArrayList<Object> recibirDatosTrabajos() {
+        ArrayList<Object> datosClientes= new ArrayList<>();
+        try {
+            rs = stm.executeQuery("select * from desarrollodeinterfaces.reparación");
+            while(rs.next()){
+                datosClientes.add(new Cliente(rs.getString(1), rs.getString(2), rs.getString(3),
+                        rs.getString(4), rs.getString(5), rs.getString(6)));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Oh no!");
+        }
+        return datosClientes;
+    }
+    
+    public ArrayList<Object> trabajoHecho(String numIncidencia) {
+        ArrayList<Object> datosClientes= new ArrayList<>();
+        try {
+            stm.executeUpdate("delete from desarrollodeinterfaces.reparación where `NumIncidencia` = '"+numIncidencia+"';");
+        } catch (SQLException ex) {
+            System.out.println("Oh no!");
+        }
+        return datosClientes;
+    }
+    
+    public String getTelfn(String dni) {
+    	try {
+            rs = stm.executeQuery("select Teléfono from desarrollodeinterfaces.cliente where `DNI_Cliente` = '"+dni+"';");
+            while (rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Oh no!");
+        }
+    	return null;
+    }
+    
+    public void guardarTrabajo(String dni, String numSerie, String problema, String tiempo, String piezas) {
+    	try {
+			stm.executeUpdate("insert into reparación(`DNI_Cliente`, `Problema`, `Tiempo_Estimado`, `Piezas`, `Teléfono`) values ('"+dni+"', '"+problema+"', '"+tiempo+"', '"+piezas+"', '"+getTelfn(dni)+"');");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		};
+    }
 
     /**
      * Inserta los datos pasados como parámetro en la tabla clientes de la BD.

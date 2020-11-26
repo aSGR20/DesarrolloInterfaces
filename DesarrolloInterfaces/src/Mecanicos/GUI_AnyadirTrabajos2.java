@@ -39,6 +39,7 @@ public class GUI_AnyadirTrabajos2 extends javax.swing.JFrame{
 
 	private String profesion;
 	private String NumSerie;
+	private String dni;
 	private DefaultTableModel dm;
 	private GUI_AnyadirTrabajos1 menu;
 	private JFrame frame;
@@ -49,10 +50,11 @@ public class GUI_AnyadirTrabajos2 extends javax.swing.JFrame{
 	/**
 	 * Create the application.
 	 */
-	public GUI_AnyadirTrabajos2(GUI_AnyadirTrabajos1 menu, String profesion) {
+	public GUI_AnyadirTrabajos2(GUI_AnyadirTrabajos1 menu, String profesion, String dni) {
 		initialize();
 		this.menu = menu;
 		this.profesion = profesion;
+		this.dni = dni;
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
@@ -233,7 +235,7 @@ public class GUI_AnyadirTrabajos2 extends javax.swing.JFrame{
 	}
 	
 	public void seleccionar() {
-		GUI_AnyadirTrabajos3 siguiente = new GUI_AnyadirTrabajos3(this);
+		GUI_AnyadirTrabajos3 siguiente = new GUI_AnyadirTrabajos3(this, NumSerie, dni);
 		this.setVisible(false);
 		//GUARDAR LOS DATOS DE LA TABLA SELECCIONADO O HACERLO EN EL TABLEMOUSECLICKED 
 	}

@@ -149,7 +149,8 @@ public class GUI_ComenzarTrabajo2 extends javax.swing.JFrame{
 		int boton = JOptionPane.showConfirmDialog(null, "Confirmar la finalización", "Finalizar", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 		if(boton == JOptionPane.YES_OPTION) {
 			//Quitarlo de la base de datos
-			
+			DAO_Cliente clienteDao = new DAO_Cliente();
+			clienteDao.trabajoHecho(NumIncidencia);
 			
 			//Vuelve atrás
 			
@@ -164,7 +165,7 @@ public class GUI_ComenzarTrabajo2 extends javax.swing.JFrame{
 	
 	public void llamar() {
 		int boton = JOptionPane.showConfirmDialog(null, "¿Desea llamar al cliente?", "Llamar", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-		if(boton == JOptionPane.YES_OPTION) {			
+		if(boton == JOptionPane.YES_OPTION) {
 			JOptionPane.showMessageDialog(null, "Llamando...");
 		}
 		if(boton == JOptionPane.NO_OPTION) {
